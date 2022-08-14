@@ -155,6 +155,7 @@
     "sass": "^1.51.0",
     "sass-loader": "^12.4.0",
     "snapshot-diff": "^0.9.0",
+    "storybook-addon-designs": "^6.3.1",
     "storybook-addon-performance": "^0.16.1",
     "storybook-addon-react-docgen": "^1.2.43-canary.135.1793.0",
     "storybook-addon-themes": "^6.1.0",

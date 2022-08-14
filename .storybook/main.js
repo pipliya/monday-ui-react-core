@@ -30,7 +30,8 @@ const getAddons = () => {
     "storybook-addon-performance/register",
     "@storybook/addon-docs",
     "@storybook/addon-toolbars",
-    "@storybook/addon-actions"
+    "@storybook/addon-actions",
+    "storybook-addon-designs"
   ];
 
   if (process.env.NODE_ENV !== "production") {

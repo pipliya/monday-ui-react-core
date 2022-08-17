@@ -1,0 +1,24 @@
+import {Meta} from "@storybook/addon-docs";
+import {ComponentName} from "../../components";
+import MotionDemo from "./motion-demo/motion-demo"
+import {ComingSoon} from "../../components/coming-soon/coming-soon";
+import classes from "./motionStory.module.scss";
+
+<Meta
+    title="Foundations/Motion/key Frames"
+/>
+
+<ComponentName withFoundationBackground>
+    Motion KeyFrames
+</ComponentName>
+
+<ComingSoon/>
+
+## Keyframes
+Focus on item to see keyframe animation
+### KeyFrames Examples
+
+<section className={classes.motionDemoWrapper}>
+    Pop Elastic
+    <MotionDemo keyframe={MotionDemo.keyframes.POP_ELASTIC} duration={MotionDemo.durations.EXPRESSIVE_SHORT} timing={MotionDemo.timings.EASE_IN_OUT}/>
+</section>

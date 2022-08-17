@@ -1,20 +1,7 @@
 @import "./keyframes";
 
 $motion-keyframes: (
-        BounceIn: bounce-in,
-        BounceSmall: bounce-small,
-        BounceTwice: bounce-twice,
-        ExpandOut: expand-out,
-        FadeIn: fade-in,
-        FadeInExpand: fade-in-expand,
-        FadeInOut: fade-in-out,
-        FadeOut: fade-out,
-        FadeOutCollapse: fade-out-collapse,
-        Nudge: nudge,
-        Shake: shake,
-        SlideUpIn: slide-up-in,
-        Spin: spin,
-        SpinReverse: spin-reverse,
+        PopElastic: pop-elastic,
 );
 
 $motion-duration: (
@@ -26,6 +13,7 @@ $motion-duration: (
 );
 
 $motion-timing: (
+        motionTimingEaseInOut: ease-in-out,
         motionIimingEnter: var(--animation-timing-enter),
         motionIimingExit: var(--animation-timing-exit),
         motionTimingTransition: var(--animation-timing-transition),
@@ -34,21 +22,22 @@ $motion-timing: (
 
 .demo {
   height: 50px;
-  display:block;
+  display: block;
   width: 50px;
   background-color: var(--color-ui_grey);
-  &:focus{
+
+  &:focus {
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-duration: 1s;
     transition-timing-function: linear;
-    cursor:pointer;
+    cursor: pointer;
   }
 }
 
 @each $keyframe, $value in $motion-keyframes {
   .motion#{$keyframe} {
-    &:focus{
+    &:focus {
       animation-name: #{$value}
     }
   }

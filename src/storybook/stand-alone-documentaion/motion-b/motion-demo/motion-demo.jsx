@@ -37,20 +37,7 @@ MotionDemo.propTypes = {
     id: PropTypes.string,
     keyframe: PropTypes.oneOf(
         [
-            MotionDemo.keyframes.BOUNCE_IN,
-            MotionDemo.keyframes.BOUNCE_SMALL,
-            MotionDemo.keyframes.BOUNCE_TWICE,
-            MotionDemo.keyframes.EXPAND_OUT,
-            MotionDemo.keyframes.FADE_IN,
-            MotionDemo.keyframes.FADE_IN_EXPAND,
-            MotionDemo.keyframes.FADE_IN_OUT,
-            MotionDemo.keyframes.FADE_OUT,
-            MotionDemo.keyframes.FADE_OUT_COLLAPSE,
-            MotionDemo.keyframes.NUDGE,
-            MotionDemo.keyframes.SHAKE,
-            MotionDemo.keyframes.SLIDE_UP_IN,
-            MotionDemo.keyframes.SPIN,
-            MotionDemo.keyframes.SPIN_REVERSE,
+            MotionDemo.keyframes.POP_ELASTIC,
         ]
     ),
     duration: PropTypes.oneOf(
@@ -64,6 +51,7 @@ MotionDemo.propTypes = {
     ),
     timing: PropTypes.oneOf(
         [
+            MotionDemo.timings.EASE_IN_OUT,
             MotionDemo.timings.ENTER,
             MotionDemo.timings.EXIT,
             MotionDemo.timings.TRANSITION,

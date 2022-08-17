@@ -1,0 +1,83 @@
+@import "../../../../styles/keyframes";
+
+$motion-keyframes: (
+  PopElastic: pop-elastic,
+  SpinInEmphasized: spin-in-emphasized,
+  PopInEmphasized: pop-in-emphasized,
+        SlideInElastic: slide-in-elastic
+);
+
+$motion-duration: (
+  motionProductiveShort: var(--motion-productive-short),
+  motionProductiveMedium: var(--motion-productive-medium),
+  motionProductiveLong: var(--motion-productive-long),
+  motionExpressiveShort: var(--motion-expressive-short),
+  motionExpressiveLong: var(--motion-expressive-long)
+);
+
+$motion-timing: (
+  motionTimingEaseInOut: ease-in-out,
+  motionIimingEnter: var(--motion-timing-enter),
+  motionIimingExit: var(--motion-timing-exit),
+  motionTimingTransition: var(--motion-timing-transition),
+  motionTimingEmphasize: var(--motion-timing-emphasize)
+);
+
+.demo {
+  height: 50px;
+  display: block;
+  width: 50px;
+  background-color: var(--color-ui_grey);
+  position: relative;
+  animation-direction: normal;
+  padding: var(--spacing-small);
+  position: relative;
+  &::before {
+    position: absolute;
+    content: "";
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    bottom: 8px;
+    background-color: var(--primary-color);
+    opacity: var(--disabled-component-opacity);
+  }
+}
+.demoSection {
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-large);
+}
+
+.demoButton {
+  margin-left: 100px;
+}
+
+.active {
+  &::before {
+    opacity: 1;
+  }
+}
+
+@each $keyframe, $value in $motion-keyframes {
+  .active.motion#{$keyframe} {
+    &::before {
+      animation-name: #{$value};
+    }
+  }
+}
+
+@each $duration, $value in $motion-duration {
+  .active.#{$duration} {
+    &::before {
+      animation-duration: #{$value};
+    }
+  }
+}
+
+@each $timing, $value in $motion-timing {
+  .active.#{$timing} {
+    &::before {
+      animation-timing-function: #{$value};
+    }
+  }
+}

@@ -5,7 +5,6 @@ exports[`IconButton renders correctly with 1`] = `
   aria-disabled={false}
   className="class-name monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -23,15 +22,13 @@ exports[`IconButton renders correctly with 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -48,7 +45,6 @@ exports[`IconButton renders correctly with active 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--color-primary-active monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -67,15 +63,13 @@ exports[`IconButton renders correctly with active 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -89,7 +83,7 @@ exports[`IconButton renders correctly with active 1`] = `
 
 exports[`IconButton renders correctly with aria label 1`] = `
 <span
-  className=""
+  className="referenceWrapper"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -103,7 +97,6 @@ exports[`IconButton renders correctly with aria label 1`] = `
     aria-label="My aria label"
     className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
     data-testid="icon-button"
-    disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -121,15 +114,13 @@ exports[`IconButton renders correctly with aria label 1`] = `
     type="button"
   >
     <svg
-      aria-hidden={false}
-      className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+      aria-hidden={true}
+      className="icon_component icon-button-padding icon_component--no-focus-style"
       fill="currentColor"
-      height="24"
+      height="20"
       onClick={[Function]}
-      role="button"
-      tabIndex={0}
       viewBox="0 0 20 20"
-      width="24"
+      width="20"
     >
       <path
         clipRule="evenodd"
@@ -145,9 +136,8 @@ exports[`IconButton renders correctly with aria label 1`] = `
 exports[`IconButton renders correctly with disabled 1`] = `
 <button
   aria-disabled={true}
-  className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
+  className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding monday-style-button--disabled"
   data-testid="icon-button"
-  disabled={true}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -165,15 +155,13 @@ exports[`IconButton renders correctly with disabled 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -190,7 +178,6 @@ exports[`IconButton renders correctly with empty props 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -208,15 +195,13 @@ exports[`IconButton renders correctly with empty props 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -233,7 +218,6 @@ exports[`IconButton renders correctly with id 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button_icon-button"
-  disabled={false}
   id="icon-button"
   onBlur={[Function]}
   onClick={[Function]}
@@ -252,15 +236,13 @@ exports[`IconButton renders correctly with id 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -277,7 +259,6 @@ exports[`IconButton renders correctly with size - large 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -295,15 +276,13 @@ exports[`IconButton renders correctly with size - large 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -320,7 +299,6 @@ exports[`IconButton renders correctly with size - medium 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -338,15 +316,13 @@ exports[`IconButton renders correctly with size - medium 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -363,7 +339,6 @@ exports[`IconButton renders correctly with size - small 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -381,15 +356,13 @@ exports[`IconButton renders correctly with size - small 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
-    height="24"
+    height="20"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
-    width="24"
+    width="20"
   >
     <path
       clipRule="evenodd"
@@ -406,7 +379,6 @@ exports[`IconButton renders correctly with size - xs 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -424,13 +396,11 @@ exports[`IconButton renders correctly with size - xs 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
     height="16"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
     width="16"
   >
@@ -449,7 +419,6 @@ exports[`IconButton renders correctly with size - xxs 1`] = `
   aria-disabled={false}
   className="monday-style-button monday-style-button--size-medium monday-style-button--kind-tertiary monday-style-button--color-primary monday-style-button--no-side-padding"
   data-testid="icon-button"
-  disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -467,13 +436,11 @@ exports[`IconButton renders correctly with size - xxs 1`] = `
   type="button"
 >
   <svg
-    aria-hidden={false}
-    className="icon_component icon-button-padding icon_component--clickable icon_component--no-focus-style"
+    aria-hidden={true}
+    className="icon_component icon-button-padding icon_component--no-focus-style"
     fill="currentColor"
     height="16"
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
     viewBox="0 0 20 20"
     width="16"
   >

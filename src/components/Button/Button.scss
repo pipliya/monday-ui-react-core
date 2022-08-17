@@ -11,7 +11,7 @@
   border-radius: $border-radius-small;
   cursor: pointer;
   white-space: nowrap;
-  transition: 50ms transform, 0.1s $expand-animation-timing min-width;
+  transition: var(--motion-productive-short) transform, var(--motion-productive-medium) var(--motion-timing-transition) min-width;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -73,15 +73,14 @@
     }
   }
   .monday-style-button--left-icon {
-    padding-right: $spacing-small;
+    margin-right: var(--spacing-small);
   }
 
   .monday-style-button--right-icon {
-    padding-left: $spacing-small;
+    margin-left: var(--spacing-small);
   }
 
   &--size {
-
     &-xxs {
       @include font-input();
       padding: $spacing-xxs $spacing-xs;
@@ -157,15 +156,16 @@
               backdrop-filter: brightness(85%);
               @include focus-style-on-primary();
             }
-            &:disabled {
+            &.monday-style-button--disabled {
               color: var(--text-color-on-primary);
             }
           }
         }
-        &:disabled {
+        &.monday-style-button--disabled {
           @include theme-prop(background-color, disabled-background-color);
           @include theme-prop(color, disabled-text-color);
           cursor: not-allowed;
+          pointer-events: none;
         }
       }
     }
@@ -224,13 +224,13 @@
               backdrop-filter: brightness(85%);
               @include focus-style-on-primary();
             }
-            &:disabled {
+            &.monday-style-button--disabled {
               color: var(--text-color-on-primary);
             }
           }
         }
       }
-      &:disabled {
+      &.monday-style-button--disabled {
         @include theme-prop(border-color, disabled-background-color);
         @include theme-prop(color, disabled-text-color);
         cursor: not-allowed;
@@ -277,7 +277,7 @@
               backdrop-filter: brightness(85%);
               @include focus-style-on-primary();
             }
-            &:disabled {
+            &.monday-style-button--disabled {
               color: var(--text-color-on-primary);
             }
           }
@@ -291,7 +291,7 @@
           }
         }
       }
-      &:disabled {
+      &.monday-style-button--disabled {
         @include theme-prop(color, disabled-text-color);
         cursor: not-allowed;
         pointer-events: none;
@@ -308,4 +308,8 @@
   }
 
   @include focus-style();
+
+  &.inset-focus-style {
+    @include focus-style-inset();
+  }
 }

@@ -1,39 +1,59 @@
-import {Meta} from "@storybook/addon-docs";
-import {ComponentName} from "../../components";
-import MotionDemo from "./motion-demo/motion-demo"
+import { Meta } from "@storybook/addon-docs";
+import { ComponentName } from "../../components";
+import MotionDemo from "./motion-demo/motion-demo";
 import classes from "./motionStory.module.scss";
 
-<Meta
-    title="Foundations/Motion Key Frames"
-/>
+<Meta title="Foundations/Motion: Key Frames" />
 
-<ComponentName withFoundationBackground>
-    Motion KeyFrames
-</ComponentName>
+<ComponentName withFoundationBackground>Motion KeyFrames</ComponentName>
 
 ## Keyframes
+
 Focus on item to see keyframe animation
+
 ### KeyFrames Examples
 
 <section className={classes.motionDemoWrapper}>
-    Pop Elastic
-    <MotionDemo keyframe={MotionDemo.keyframes.POP_ELASTIC} duration={MotionDemo.durations.EXPRESSIVE_SHORT} timing={MotionDemo.timings.EASE_IN_OUT}/>
+  Pop Elastic
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_ELASTIC}
+    duration={MotionDemo.durations.EXPRESSIVE_SHORT}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+  />
 </section>
 
 <section className={classes.motionDemoWrapper}>
-    Pop In Emphasized
-    <MotionDemo keyframe={MotionDemo.keyframes.POP_IN_EMPHASIZED} duration={MotionDemo.durations.PRODUCTIVE_LONG} timing={MotionDemo.timings.EMPHASIZE}/>
+  Pop In Emphasized
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN_EMPHASIZED}
+    duration={MotionDemo.durations.PRODUCTIVE_LONG}
+    timing={MotionDemo.timings.EMPHASIZE}
+  />
 </section>
 
 <section className={classes.motionDemoWrapper}>
-    Spin In Emphasized
-    <MotionDemo keyframe={MotionDemo.keyframes.SPIN_IN_EMPHASIZED} duration={MotionDemo.durations.PRODUCTIVE_LONG} timing={MotionDemo.timings.EMPHASIZE}/>
+  Spin In Emphasized
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SPIN_IN_EMPHASIZED}
+    duration={MotionDemo.durations.PRODUCTIVE_LONG}
+    timing={MotionDemo.timings.EMPHASIZE}
+  />
 </section>
 
 <section className={classes.motionDemoWrapper}>
-    Slide In Elastic
-    <MotionDemo keyframe={MotionDemo.keyframes.SLIDE_IN_ELASTIC} duration={MotionDemo.durations.EXPRESSIVE_LONG} timing={MotionDemo.timings.EMPHASIZE}/>
+  Slide In Elastic
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SLIDE_IN_ELASTIC}
+    duration={MotionDemo.durations.EXPRESSIVE_LONG}
+    timing={MotionDemo.timings.EMPHASIZE}
+  />
 </section>
 
-
-
+<section className={classes.motionDemoWrapper}>
+  Slide Out
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SLIDE_OUT}
+    duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
+    timing={MotionDemo.timings.EXIT}
+  />
+</section>

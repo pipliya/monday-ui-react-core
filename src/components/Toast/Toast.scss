@@ -1,6 +1,9 @@
 @import "../../styles/global-css-settings";
 @import "../../styles/typography";
 @import "../../styles/themes";
+@import "../../styles/keyframes/mixins";
+@import "../../styles/keyframes/slide/slide-in-elastic";
+@import "../../styles/keyframes/slide/slide-out";
 
 .monday-style-toast {
   @include font-paragraph();
@@ -63,50 +66,16 @@
     }
     &-enter-active {
       animation-duration: var(--motion-expressive-long);
-      animation-name: toast-pop-in;
+      animation-name: slide-in-elastic;
     }
 
     &-exit-active {
       animation-duration: var(--motion-productive-long);
-      animation-name: toast-pop-out;
+      animation-name: slide-out;
     }
   }
 
   &_close-button {
     margin-left: $spacing-small;
-  }
-}
-
-@keyframes toast-pop-in {
-  0% {
-    transform: translate(-50%, -115px);
-  }
-  25% {
-    // down 130 px
-    transform: translate(-50%, 15px);
-    animation-timing-function: var(--motion-timing-enter);
-  }
-
-  66% {
-    // up 20 px
-    transform: translate(-50%, -5px);
-    animation-timing-function: var(--motion-timing-exit);
-  }
-
-  100% {
-    // down 5 px
-    transform: translate(-50%, 0px);
-    animation-timing-function: var(--motion-timing-exit);
-  }
-}
-
-@keyframes toast-pop-out {
-  0% {
-    transform: translate(-50%, 0);
-  }
-  100% {
-    // up 130 px
-    transform: translate(-50%, -130px);
-    animation-timing-function: var(--motion-timing-enter);
   }
 }

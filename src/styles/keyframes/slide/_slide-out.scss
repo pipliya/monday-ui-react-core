@@ -1,0 +1,12 @@
+@include keyframe(slide-out) {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -65px);
+    opacity: 0;
+  }
+}

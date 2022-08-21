@@ -4,7 +4,8 @@ $motion-keyframes: (
   PopElastic: pop-elastic,
   SpinInEmphasized: spin-in-emphasized,
   PopInEmphasized: pop-in-emphasized,
-        SlideInElastic: slide-in-elastic
+  SlideInElastic: slide-in-elastic,
+  SlideOut: slide-out
 );
 
 $motion-duration: (
@@ -29,10 +30,10 @@ $motion-timing: (
   width: 50px;
   background-color: var(--color-ui_grey);
   position: relative;
-  animation-direction: normal;
   padding: var(--spacing-small);
   position: relative;
   &::before {
+    animation-direction: normal;
     position: absolute;
     content: "";
     left: 8px;
@@ -40,7 +41,7 @@ $motion-timing: (
     top: 8px;
     bottom: 8px;
     background-color: var(--primary-color);
-    opacity: var(--disabled-component-opacity);
+    opacity: 0;
   }
 }
 .demoSection {
@@ -52,9 +53,15 @@ $motion-timing: (
   margin-left: 100px;
 }
 
-.active {
+.static {
   &::before {
     opacity: 1;
+  }
+}
+
+.active {
+  &::before {
+    opacity: 0.5;
   }
 }
 

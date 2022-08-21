@@ -1,6 +1,8 @@
 @import "../../styles/themes";
 @import "../../styles/typography";
 @import "../../styles/global-css-settings";
+@import "../../styles/keyframes/mixins";
+@import "../../styles/keyframes/spin/spin-in-emphasized";
 
 .monday-style-label {
   display: inline-flex;
@@ -25,8 +27,7 @@
   }
 
   &--with-animation {
-    animation: label-pop var(--motion-expressive-short) var(--motion-timing-emphasize);
-    transform-origin: bottom left;
+    animation: spin-in-emphasized var(--motion-expressive-short) var(--motion-timing-emphasize);
   }
 
   &--kind {
@@ -115,21 +116,6 @@
           }
         }
       }
-    }
-  }
-
-  @keyframes label-pop {
-    0% {
-      transform: scale(0.8) rotate(25deg);
-      opacity: 0;
-    }
-
-    70% {
-      opacity: 1;
-    }
-
-    100% {
-      transform: rotate(0deg);
     }
   }
 }

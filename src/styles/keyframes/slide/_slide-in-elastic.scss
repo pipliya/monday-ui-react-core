@@ -1,14 +1,14 @@
 @include keyframe(slide-in-elastic) {
   0%{
-    transform: translateY(-115px);
+    transform: translate(-50%, -115px);
   }
   33%{
-    transform: translateY(15px);
+    transform: translate(-50%, 15px);
   }
   66%{
-    transform: translateY(-5px);
+    transform: translate(-50%, -5px);
   }
   100%{
-    transform: translateY(0px);
+    transform: translate(-50%, 0px);
   }
 }

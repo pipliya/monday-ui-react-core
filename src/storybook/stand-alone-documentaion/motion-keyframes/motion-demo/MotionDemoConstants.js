@@ -4,7 +4,8 @@ export const KEYFRAME = Object.freeze({
     POP_ELASTIC: classes.motionPopElastic,
     SPIN_IN_EMPHASIZED: classes.motionSpinInEmphasized,
     POP_IN_EMPHASIZED: classes.motionPopInEmphasized,
-    SLIDE_IN_ELASTIC: classes.motionSlideInElastic
+    SLIDE_IN_ELASTIC: classes.motionSlideInElastic,
+    SLIDE_OUT:  classes.motionSlideOut,
 })
 
 export const DURATION = Object.freeze({

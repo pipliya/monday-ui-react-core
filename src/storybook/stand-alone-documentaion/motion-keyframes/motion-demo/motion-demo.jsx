@@ -23,7 +23,7 @@ const MotionDemo = forwardRef(({ className, id, keyframe, duration, timing }, re
     <Flex className={cx(classes.demoSection)}>
       <div
         ref={mergedRef}
-        className={cx(classes.demo, keyframe, duration, timing, { [classes.active]: isActive })}
+        className={cx(className, classes.demo, keyframe, duration, timing, { [classes.active]: isActive })}
         id={id}
       ></div>
       {isActive && (
@@ -55,7 +55,11 @@ MotionDemo.propTypes = {
    * id to be add to the wrapper
    */
   id: PropTypes.string,
-  keyframe: PropTypes.oneOf([MotionDemo.keyframes.POP_ELASTIC, MotionDemo.keyframes.SPIN_IN_EMPHASIZED]),
+  keyframe: PropTypes.oneOf([
+    MotionDemo.keyframes.POP_ELASTIC,
+    MotionDemo.keyframes.SPIN_IN_EMPHASIZED,
+    MotionDemo.keyframes.SLIDE_OUT
+  ]),
   duration: PropTypes.oneOf([
     MotionDemo.durations.PRODUCTIVE_SHORT,
     MotionDemo.durations.PRODUCTIVE_MEDIUM,

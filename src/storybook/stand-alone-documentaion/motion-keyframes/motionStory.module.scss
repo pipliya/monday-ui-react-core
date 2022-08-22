@@ -3,3 +3,9 @@
 .motionDemoWrapper{
   margin-bottom: var(--spacing-large);
 }
+
+.transformFix{
+  left:50%;
+  transform: translateX(-50%);
+  width:calc(100% - 16px);
+}

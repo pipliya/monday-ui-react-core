@@ -16,6 +16,8 @@ Focus on item to see keyframe animation
 <section className={classes.motionDemoWrapper}>
   Pop Elastic
   <MotionDemo
+      className={"z"}
+    state={MotionDemo.states.STATIC}
     keyframe={MotionDemo.keyframes.POP_ELASTIC}
     duration={MotionDemo.durations.EXPRESSIVE_SHORT}
     timing={MotionDemo.timings.EASE_IN_OUT}
@@ -52,6 +54,7 @@ Focus on item to see keyframe animation
 <section className={classes.motionDemoWrapper}>
   Slide Out
   <MotionDemo
+    state={MotionDemo.states.STATIC_START}
     keyframe={MotionDemo.keyframes.SLIDE_OUT}
     duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
     timing={MotionDemo.timings.EXIT}

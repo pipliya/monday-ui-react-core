@@ -103,7 +103,7 @@ const Toast = ({
   const iconElement = !hideIcon && getIcon(type, icon);
 
   return (
-    <CSSTransition in={open} classNames="monday-style-toast-animation" timeout={400} unmountOnExit>
+    <CSSTransition in={open} classNames="monday-style-toast-animation" timeout={40000000000000} unmountOnExit>
       <div className={classNames} role="alert" aria-live="polite">
         {iconElement && <div className="monday-style-toast-icon">{iconElement}</div>}
         <div

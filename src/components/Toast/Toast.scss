@@ -11,10 +11,11 @@
   @include theme-prop(color, text-color-on-primary);
   margin: $spacing-medium;
   position: fixed;
+  right:0;
+  left:0;
   top: 0;
-  left: 50%;
-  right: auto;
-  transform: translate(-50%, 0);
+  margin-left:auto !important;
+  margin-right:auto !important;
   padding: $spacing-small;
   align-items: center;
   display: flex;

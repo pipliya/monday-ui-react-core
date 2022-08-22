@@ -24,26 +24,38 @@ $motion-timing: (
   motionTimingEmphasize: var(--motion-timing-emphasize)
 );
 
+$motion-demo-size: 140px;
+$motion-demo-background-color: var(--color-riverstone_gray);
+$motion-demo-inner-spacing:var(--spacing-xl);
+$motion-demo-inner-background-color: var(--primary-color);
+
 .demo {
-  height: 50px;
   display: block;
-  width: 50px;
-  background-color: var(--color-ui_grey);
+  height: $motion-demo-size;
+  width: $motion-demo-size;
+  background-color: $motion-demo-background-color;
   position: relative;
-  padding: var(--spacing-small);
   position: relative;
+
   &::before {
-    animation-direction: normal;
+    animation-fill-mode: forwards;
     position: absolute;
     content: "";
-    left: 8px;
-    right: 8px;
-    top: 8px;
-    bottom: 8px;
-    background-color: var(--primary-color);
+    left: $motion-demo-inner-spacing;
+    right: $motion-demo-inner-spacing;
+    top: $motion-demo-inner-spacing;
+    bottom: $motion-demo-inner-spacing;
+    background-color: $motion-demo-inner-background-color;
     opacity: 0;
   }
 }
+
+.active {
+  &::before {
+    opacity: 1;
+  }
+}
+
 .demoSection {
   margin-top: var(--spacing-medium);
   margin-bottom: var(--spacing-large);
@@ -53,15 +65,10 @@ $motion-timing: (
   margin-left: 100px;
 }
 
-.static {
+.motionStatic,
+.motionStaticStart {
   &::before {
     opacity: 1;
-  }
-}
-
-.active {
-  &::before {
-    opacity: 0.5;
   }
 }
 

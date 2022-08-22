@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 import Flex from "../../../../components/Flex/Flex";
 import Button from "../../../../components/Button/Button";
 import cx from "classnames";
-
-import { KEYFRAME, DURATION, TIMING } from "./MotionDemoConstants";
+import { STATE, KEYFRAME, DURATION, TIMING } from "./MotionDemoConstants";
 
 import classes from "./motionDemo.module.scss";
 
-const MotionDemo = forwardRef(({ className, id, keyframe, duration, timing }, ref) => {
+const MotionDemo = forwardRef(({ className, id, state, keyframe, duration, timing }, ref) => {
   const componentRef = useRef(null);
   const mergedRef = useMergeRefs({ refs: [ref, componentRef] });
 
@@ -20,19 +19,19 @@ const MotionDemo = forwardRef(({ className, id, keyframe, duration, timing }, re
   };
 
   return (
-    <Flex className={cx(classes.demoSection)}>
+    <Flex className={cx(className, classes.demoSection)}>
       <div
         ref={mergedRef}
-        className={cx(className, classes.demo, keyframe, duration, timing, { [classes.active]: isActive })}
+        className={cx(classes.demo, state, keyframe, duration, timing, { [classes.active]: isActive })}
         id={id}
       ></div>
       {isActive && (
-        <Button className={cx(classes.demoButton)} onClick={handleClick}>
+        <Button kind={Button.kinds.SECONDARY} className={cx(classes.demoButton)} onClick={handleClick}>
           Reset
         </Button>
       )}
       {!isActive && (
-        <Button className={cx(classes.demoButton)} onClick={handleClick}>
+        <Button kind={Button.kinds.SECONDARY} className={cx(classes.demoButton)} onClick={handleClick}>
           Play
         </Button>
       )}
@@ -41,7 +40,7 @@ const MotionDemo = forwardRef(({ className, id, keyframe, duration, timing }, re
 });
 
 export default MotionDemo;
-
+MotionDemo.states = STATE;
 MotionDemo.keyframes = KEYFRAME;
 MotionDemo.durations = DURATION;
 MotionDemo.timings = TIMING;
@@ -55,9 +54,12 @@ MotionDemo.propTypes = {
    * id to be add to the wrapper
    */
   id: PropTypes.string,
+  state: PropTypes.oneOf([MotionDemo.states.STATIC, MotionDemo.states.STATIC_START]),
   keyframe: PropTypes.oneOf([
     MotionDemo.keyframes.POP_ELASTIC,
+    MotionDemo.keyframes.POP_IN_EMPHASIZED,
     MotionDemo.keyframes.SPIN_IN_EMPHASIZED,
+    MotionDemo.keyframes.SLIDE_IN_ELASTIC,
     MotionDemo.keyframes.SLIDE_OUT
   ]),
   duration: PropTypes.oneOf([

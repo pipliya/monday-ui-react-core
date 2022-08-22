@@ -1,5 +1,10 @@
 import classes from "./motionDemo.module.scss";
 
+export const STATE = Object.freeze({
+    STATIC: classes.motionStatic,
+    STATIC_START: classes.motionStaticStart
+})
+
 export const KEYFRAME = Object.freeze({
     POP_ELASTIC: classes.motionPopElastic,
     SPIN_IN_EMPHASIZED: classes.motionSpinInEmphasized,

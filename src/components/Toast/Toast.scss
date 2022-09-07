@@ -67,12 +67,12 @@
     }
     &-enter-active {
       animation-duration: var(--motion-expressive-long);
-      animation-name: slide-in-elastic;
+      animation-name: vibe-motion-slide-in-elastic;
     }
 
     &-exit-active {
       animation-duration: var(--motion-productive-long);
-      animation-name: slide-out;
+      animation-name: vibe-motion-slide-out;
     }
   }
 

@@ -1,32 +1,48 @@
 @import "../../../../styles/keyframes";
 
+$motion-origin: (
+        originTopCenter: center top,
+        originTopLeft: left top,
+        originTopRight: right top,
+        originCenter: center,
+        originBottomLeft: left bottom,
+        originBottomRight: right bottom
+);
+
 $motion-keyframes: (
-  PopElastic: pop-elastic,
-  SpinInEmphasized: spin-in-emphasized,
-  PopInEmphasized: pop-in-emphasized,
-  SlideInElastic: slide-in-elastic,
-  SlideOut: slide-out
+        PopInFromTrigger: vibe-motion-pop-in-from-trigger,
+        PopIn: vibe-motion-pop-in,
+        PopElastic: vibe-motion-pop-elastic,
+        PopInElastic: vibe-motion-pop-in-elastic,
+        PopInElasticBold: vibe-motion-pop-in-elastic-bold,
+        PopOutFromTrigger: vibe-motion-pop-out-from-trigger,
+        SpinInEmphasized: vibe-motion-spin-in-emphasized,
+        PopInEmphasized: vibe-motion-pop-in-emphasized,
+        SlideIn: vibe-motion-slide-in,
+        SlideInElastic: vibe-motion-slide-in-elastic,
+        SlideOut: vibe-motion-slide-out
 );
 
 $motion-duration: (
-  motionProductiveShort: var(--motion-productive-short),
-  motionProductiveMedium: var(--motion-productive-medium),
-  motionProductiveLong: var(--motion-productive-long),
-  motionExpressiveShort: var(--motion-expressive-short),
-  motionExpressiveLong: var(--motion-expressive-long)
+        motionProductiveShort: var(--motion-productive-short),
+        motionProductiveMedium: var(--motion-productive-medium),
+        motionProductiveLong: var(--motion-productive-long),
+        motionExpressiveShort: var(--motion-expressive-short),
+        motionExpressiveLong: var(--motion-expressive-long),
+        motionSlowMotion: 5s,
 );
 
 $motion-timing: (
-  motionTimingEaseInOut: ease-in-out,
-  motionIimingEnter: var(--motion-timing-enter),
-  motionIimingExit: var(--motion-timing-exit),
-  motionTimingTransition: var(--motion-timing-transition),
-  motionTimingEmphasize: var(--motion-timing-emphasize)
+        motionTimingEaseInOut: ease-in-out,
+        motionIimingEnter: var(--motion-timing-enter),
+        motionIimingExit: var(--motion-timing-exit),
+        motionTimingTransition: var(--motion-timing-transition),
+        motionTimingEmphasize: var(--motion-timing-emphasize)
 );
 
 $motion-demo-size: 140px;
 $motion-demo-background-color: var(--color-riverstone_gray);
-$motion-demo-inner-spacing:var(--spacing-xl);
+$motion-demo-inner-spacing: var(--spacing-xl);
 $motion-demo-inner-background-color: var(--primary-color);
 
 .demo {
@@ -62,7 +78,7 @@ $motion-demo-inner-background-color: var(--primary-color);
 }
 
 .demoButton {
-  margin-left: 100px;
+  margin-left: var(--spacing-large);
 }
 
 .motionStatic,
@@ -92,6 +108,14 @@ $motion-demo-inner-background-color: var(--primary-color);
   .active.#{$timing} {
     &::before {
       animation-timing-function: #{$value};
+    }
+  }
+}
+
+@each $key, $value in $motion-origin {
+  .active.#{$key} {
+    &::before {
+      transform-origin: $value;
     }
   }
 }

@@ -9,54 +9,231 @@ import classes from "./motionStory.module.scss";
 
 ## Keyframes
 
-Focus on item to see keyframe animation
+KeyFrames are the foundational building blocks of our motion system. They distinguish a component from being static. When KeyFrames are applied to components, they become a cohesive interactive system with a start and end state including intermediate waypoints.
+To systematize these KeyFrames, We use a naming convention that describes them in bundles and describes them as animate-in and animate-out states
 
-### KeyFrames Examples
+### Pop
+
+The Pop KeaFrames significant property is the scale which delivers the feeling of a jump, pop-up
+
+#### Pop In
+
+Use for component to appears. Focus the user
+Use in System: Modals
 
 <section className={classes.motionDemoWrapper}>
-  Pop Elastic
   <MotionDemo
-      className={"z"}
-    state={MotionDemo.states.STATIC}
+    keyframe={MotionDemo.keyframes.POP_IN}
+    duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
+    timing={MotionDemo.timings.ENTER}
+  />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.ENTER}
+    buttonText={"slow motion"}
+  />
+</section>
+
+#### Pop In From Trigger
+
+Use for component to appears, Highlighting the relationship with the parent component
+Use in System: Menu
+
+<section className={classes.motionDemoWrapper}>
+  <MotionDemo
+    origin={MotionDemo.origins.BOTTOM_RIGHT}
+    keyframe={MotionDemo.keyframes.POP_IN_FROM_TRIGGER}
+    duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
+    timing={MotionDemo.timings.ENTER}
+  />
+  <MotionDemo
+    origin={MotionDemo.origins.BOTTOM_RIGHT}
+    keyframe={MotionDemo.keyframes.POP_IN_FROM_TRIGGER}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.ENTER}
+    buttonText={"slow motion"}
+  />
+</section>
+
+#### Pop Out From Trigger
+
+Use for component to appears, Highlighting the relationship with the parent component
+Use in System: Menu
+
+<section className={classes.motionDemoWrapper}>
+  <MotionDemo
+    origin={MotionDemo.origins.BOTTOM_RIGHT}
+    state={MotionDemo.states.STATIC_START}
+    keyframe={MotionDemo.keyframes.POP_OUT_FROM_TRIGGER}
+    duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
+    timing={MotionDemo.timings.ENTER}
+  />
+  <MotionDemo
+    origin={MotionDemo.origins.BOTTOM_RIGHT}
+    state={MotionDemo.states.STATIC_START}
+    keyframe={MotionDemo.keyframes.POP_OUT_FROM_TRIGGER}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.ENTER}
+    buttonText={"slow motion"}
+  />
+</section>
+
+#### Pop Elastic
+
+Use for Notifications, Grabing the user's attention or Highlight a change
+Use in System: Counter, Step indicator
+
+<section className={classes.motionDemoWrapper}>
+  <MotionDemo
     keyframe={MotionDemo.keyframes.POP_ELASTIC}
     duration={MotionDemo.durations.EXPRESSIVE_SHORT}
     timing={MotionDemo.timings.EASE_IN_OUT}
   />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_ELASTIC}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+    buttonText={"slow motion"}
+  />
 </section>
 
+#### Pop In Emphasized
+
+Use for component to appears, Highlighting the pop
+Use in System: Chip
+
 <section className={classes.motionDemoWrapper}>
-  Pop In Emphasized
   <MotionDemo
     keyframe={MotionDemo.keyframes.POP_IN_EMPHASIZED}
     duration={MotionDemo.durations.PRODUCTIVE_LONG}
     timing={MotionDemo.timings.EMPHASIZE}
   />
-</section>
-
-<section className={classes.motionDemoWrapper}>
-  Spin In Emphasized
   <MotionDemo
-    keyframe={MotionDemo.keyframes.SPIN_IN_EMPHASIZED}
-    duration={MotionDemo.durations.PRODUCTIVE_LONG}
+    keyframe={MotionDemo.keyframes.POP_IN_EMPHASIZED}
+    duration={MotionDemo.durations.SLOW_MOTION}
     timing={MotionDemo.timings.EMPHASIZE}
+    buttonText={"slow motion"}
   />
 </section>
 
+#### Pop In Elastic
+
+Use for component to appears, grabing the user's attention
+Use in System: Add aoutomation
+
 <section className={classes.motionDemoWrapper}>
-  Slide In Elastic
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN_ELASTIC}
+    duration={MotionDemo.durations.EXPRESSIVE_SHORT}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+  />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN_ELASTIC}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+    buttonText={"slow motion"}
+  />
+</section>
+
+#### Pop In Elastic Bold
+
+Use for component to appears, grabing the user's attention
+Use in System: Add aoutomation
+
+<section className={classes.motionDemoWrapper}>
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN_ELASTIC_BOLD}
+    duration={MotionDemo.durations.EXPRESSIVE_LONG}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+  />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.POP_IN_ELASTIC_BOLD}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.EASE_IN_OUT}
+    buttonText={"slow motion"}
+  />
+</section>
+
+### Slide
+The slide KeaFrames significant property is the Position which delivers the feeling of moving
+
+#### Slide In
+Use for component to enter. Focus the user and highlighting the relationship with the parent component
+Use in System:
+
+<section className={classes.motionDemoWrapper}>
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SLIDE_IN}
+    duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
+    timing={MotionDemo.timings.ENTER}
+  />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SLIDE_IN}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.ENTER}
+    buttonText={"slow motion"}
+  />
+</section>
+
+#### Slide In Elastic
+Use for component to appear, grabing the user's attention
+Use in System: Toast, Alert
+
+<section className={classes.motionDemoWrapper}>
   <MotionDemo
     keyframe={MotionDemo.keyframes.SLIDE_IN_ELASTIC}
     duration={MotionDemo.durations.EXPRESSIVE_LONG}
     timing={MotionDemo.timings.EMPHASIZE}
   />
+  <MotionDemo
+    keyframe={MotionDemo.keyframes.SLIDE_IN_ELASTIC}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.EMPHASIZE}
+    buttonText={"slow motion"}
+  />
 </section>
 
+#### Slide Out
+Use for component to exit.
+Use in System:
+
 <section className={classes.motionDemoWrapper}>
-  Slide Out
   <MotionDemo
     state={MotionDemo.states.STATIC_START}
     keyframe={MotionDemo.keyframes.SLIDE_OUT}
     duration={MotionDemo.durations.PRODUCTIVE_MEDIUM}
     timing={MotionDemo.timings.EXIT}
   />
+  <MotionDemo
+    state={MotionDemo.states.STATIC_START}
+    keyframe={MotionDemo.keyframes.SLIDE_OUT}
+    duration={MotionDemo.durations.SLOW_MOTION}
+    timing={MotionDemo.timings.EXIT}
+    buttonText={"slow motion"}
+  />
+</section>
+
+### Spin
+The spin KeaFrames significant property is the Rotation which gives a slight atention feeling
+
+#### Spin In Emphasized
+Use for component to enter. Grabing the user's attention
+Use in System:
+
+<section className={classes.motionDemoWrapper}>
+    <MotionDemo
+        keyframe={MotionDemo.keyframes.SPIN_IN_EMPHASIZED}
+        duration={MotionDemo.durations.PRODUCTIVE_LONG}
+        timing={MotionDemo.timings.EMPHASIZE}
+        origin={MotionDemo.origins.TOP_LEFT}
+    />
+    <MotionDemo
+        keyframe={MotionDemo.keyframes.SPIN_IN_EMPHASIZED}
+        duration={MotionDemo.durations.SLOW_MOTION}
+        timing={MotionDemo.timings.EMPHASIZE}
+        buttonText={"slow motion"}
+        origin={MotionDemo.origins.TOP_LEFT}
+    />
+
 </section>

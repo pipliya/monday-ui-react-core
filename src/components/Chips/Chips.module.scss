@@ -13,7 +13,7 @@
   align-items: center;
   margin: 0 var(--spacing-xs);
   user-select: none;
-  animation: pop-in-emphasized var(--motion-productive-medium) var(--motion-timing-emphasize);
+  animation: vibe-motion-pop-in-emphasized var(--motion-productive-medium) var(--motion-timing-emphasize);
 
   &.withUserSelect {
     user-select: text;

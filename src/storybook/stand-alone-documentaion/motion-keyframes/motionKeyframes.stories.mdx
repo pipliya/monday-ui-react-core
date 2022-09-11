@@ -86,11 +86,13 @@ Use in System: Counter, Step indicator
 
 <section className={classes.motionDemoWrapper}>
   <MotionDemo
+    state={MotionDemo.states.STATIC_START}
     keyframe={MotionDemo.keyframes.POP_ELASTIC}
     duration={MotionDemo.durations.EXPRESSIVE_SHORT}
     timing={MotionDemo.timings.EASE_IN_OUT}
   />
   <MotionDemo
+    state={MotionDemo.states.STATIC_START}
     keyframe={MotionDemo.keyframes.POP_ELASTIC}
     duration={MotionDemo.durations.SLOW_MOTION}
     timing={MotionDemo.timings.EASE_IN_OUT}
@@ -156,9 +158,11 @@ Use in System: Add aoutomation
 </section>
 
 ### Slide
+
 The slide KeaFrames significant property is the Position which delivers the feeling of moving
 
 #### Slide In
+
 Use for component to enter. Focus the user and highlighting the relationship with the parent component
 Use in System:
 
@@ -177,6 +181,7 @@ Use in System:
 </section>
 
 #### Slide In Elastic
+
 Use for component to appear, grabing the user's attention
 Use in System: Toast, Alert
 
@@ -195,6 +200,7 @@ Use in System: Toast, Alert
 </section>
 
 #### Slide Out
+
 Use for component to exit.
 Use in System:
 
@@ -215,9 +221,11 @@ Use in System:
 </section>
 
 ### Spin
+
 The spin KeaFrames significant property is the Rotation which gives a slight atention feeling
 
 #### Spin In Emphasized
+
 Use for component to enter. Grabing the user's attention
 Use in System:
 

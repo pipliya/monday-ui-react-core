@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props,react/forbid-prop-types */
 import { SIZES } from "../../constants/sizes";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {AriaRole, useCallback, useMemo, useRef, useState} from "react";
 import Select, { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
@@ -18,6 +18,209 @@ import generateBaseStyles, { customTheme } from "./Dropdown.styles";
 import "./Dropdown.scss";
 import Control from "./components/Control/Control";
 import { DROPDOWN_CHIP_COLORS } from "./dropdown-constants";
+import {SubIcon, VibeComponentProps} from "../../types";
+import {TooltipProps} from "../Tooltip/Tooltip";
+import {AvatarSize, AvatarType} from "../Avatar/AvatarConstants";
+import {AvatarBadgeProps} from "../Avatar/AvatarBadge";
+
+export type DropdownOption {};
+export interface AvatarProps extends VibeComponentProps {
+  /**
+   * Placeholder to show when no value was selected
+   */
+  placeholder: string;
+  /**
+   * If set to true, dropdown will be disabled
+   */
+  disabled: boolean;
+  /**
+   * Called when menu is opened
+   */
+  onMenuOpen: PropTypes.func,
+  /**
+   * Called when menu is closed
+   */
+  onMenuClose: PropTypes.func,
+  /**
+   * Called when key is pressed in the dropdown
+   */
+  onKeyDown: PropTypes.func,
+  /**
+   * Called when focused
+   */
+  onFocus: PropTypes.func,
+  /**
+   * Called when blurred
+   */
+  onBlur: PropTypes.func,
+  /**
+   * Called when selected value has changed
+   */
+  onChange: PropTypes.func,
+  /**
+   * Called when the dropdown's input changes.
+   */
+  onInputChange: PropTypes.func,
+  /**
+   * If true, search in options will be enabled
+   */
+  searchable: boolean;
+  /**
+   * The dropdown options
+   */
+  options: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * Text to display when there are no options
+   */
+  noOptionsMessage: PropTypes.func,
+  /**
+   * If set to true, the menu will open when focused
+   */
+  openMenuOnFocus: boolean;
+  /**
+   * If set to true, the menu will open when clicked
+   */
+  openMenuOnClick: boolean;
+  /**
+   * If set to true, clear button will be added
+   */
+  clearable: boolean;
+  /**
+   * custom option render function
+   */
+  optionRenderer: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /**
+   * custom value render function
+   */
+  valueRenderer: PropTypes.func,
+  /**
+   * custom menu render function
+   */
+  menuRenderer: PropTypes.func,
+  /**
+   * Default placement of the Dropdown menu in relation to its control. Use "auto" to flip the menu when there isn't enough space below the control.
+   */
+  menuPlacement: PropTypes.oneOf(["bottom", "top", "auto"]),
+  /**
+   * If set to true, the dropdown will be in Right to Left mode
+   */
+  rtl: boolean;
+  /**
+   * Set default selected value
+   */
+  defaultValue: PropTypes.oneOfType([
+                                      PropTypes.arrayOf(
+                                      PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+                                      ),
+                                      PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+                                    ]),
+  /**
+   * The component's value.
+   * When passed, makes this a [controlled](https://reactjs.org/docs/forms.html#controlled-components) component.
+   */
+  value: PropTypes.oneOfType([
+                               PropTypes.arrayOf(
+                               PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+                               ),
+                               PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+                             ]),
+  /**
+   * Select menu size from `Dropdown.size` - Dropdown.size.LARGE | Dropdown.size.MEDIUM | Dropdown.size.SMALL
+   */
+  size: PropTypes.string,
+  /**
+   * If provided Dropdown will work in async mode. Can be either promise or callback
+   */
+  asyncOptions: PropTypes.oneOfType([
+                                      PropTypes.func, // callback
+                                      PropTypes.shape({
+      then: PropTypes.func.isRequired,
+      catch: PropTypes.func.isRequired
+    }) // Promise
+                                    ]),
+  /**
+   * If set to true, fetched async options will be cached
+   */
+  cacheOptions: boolean;
+  /**
+   * If set, `asyncOptions` will be invoked with its value on mount and the resolved results will be loaded
+   */
+  defaultOptions: PropTypes.oneOfType([PropTypes.bool, PropTypes.arrayOf(PropTypes.object)]),
+  /**
+   * If set to true, the menu will use virtualization. Virtualized async works only with
+   */
+  isVirtualized: boolean;
+  /**
+   * Whether the menu should use a portal, and where it should attach
+   */
+  menuPortalTarget: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
+  /**
+   * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
+   */
+  extraStyles: PropTypes.func,
+  /**
+   * Maximum height of the menu before scrolling
+   */
+  maxMenuHeight: PropTypes.number,
+  /**
+   * Tab index for keyboard navigation purposes
+   */
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /**
+   * ID for the select container
+   */
+  id: string;
+  /**
+   * focusAuto when component mount
+   */
+  autoFocus: boolean;
+  /**
+   * If set to true, the dropdown will be in multi-select mode.
+   * When in multi-select mode, the selected value will be an array,
+   * and it will be displayed as our [`<Chips>`](/?path=/docs/components-chips--sandbox) component.
+   */
+  multi: boolean;
+  /**
+   * If set to true together with `multi`, it will make the dropdown expand to multiple lines when new values are selected.
+   */
+  multiline: boolean;
+  /**
+   Pass closeMenuOnSelect to close the multi choose any time an options is chosen.
+   */
+  closeMenuOnSelect: boolean;
+  /**
+   * callback to be called when `multiline` is `true` and the option is removed
+   */
+  onOptionRemove: (option, e: {DropndownOption, e}) => void;
+  /**
+   The options set by default will be set as mandatory and the user will not be able to cancel their selection
+   */
+  withMandatoryDefaultOptions: boolean;
+  /**
+   * Override the built-in logic to detect whether an option is selected.
+   */
+  isOptionSelected: PropTypes.func,
+  /**
+   * For display the drop down menu in overflow hidden/scroll container.
+   */
+  insideOverflowContainer: boolean;
+  /**
+   * While using insideOverflowContainer, if the on of the dropdown container using transform animation please attached the ref to this container.
+   */
+  transformContainerRef: PropTypes.object
+};
 
 const Dropdown = ({
   className,

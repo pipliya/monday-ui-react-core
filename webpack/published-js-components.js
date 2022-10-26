@@ -33,7 +33,7 @@ const publishedJSComponents = {
   MenuButton: "components/MenuButton/MenuButton.jsx",
   SplitButton: "components/SplitButton/SplitButton.jsx",
   Checkbox: "components/Checkbox/Checkbox.js",
-  Dropdown: "components/Dropdown/Dropdown.jsx",
+  Dropdown: "components/Dropdown/Dropdown.tsx",
   TextField: "components/TextField/TextField.jsx",
   Toast: "components/Toast/Toast.jsx",
   Flex: "components/Flex/Flex.jsx",

@@ -1,30 +1,31 @@
-/* eslint-disable react/require-default-props,react/forbid-prop-types */
-import { SIZES } from "../../constants/sizes";
-import React, {AriaRole, useCallback, useMemo, useRef, useState} from "react";
+import React, {FocusEvent, ForwardedRef, RefObject, useCallback, useMemo, useRef, useState} from "react";
 import Select, { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
 import { WindowedMenuList } from "react-windowed-select";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import { SIZES } from "../../constants";
 import MenuComponent from "./components/menu/menu";
 import DropdownIndicatorComponent from "./components/DropdownIndicator/DropdownIndicator";
 import OptionComponent from "./components/option/option";
 import SingleValueComponent from "./components/singleValue/singleValue";
 import ClearIndicatorComponent from "./components/ClearIndicator/ClearIndicator";
 import ValueContainer from "./components/ValueContainer/ValueContainer";
-import { ADD_AUTO_HEIGHT_COMPONENTS, defaultCustomStyles } from "./DropdownConstants";
+import {
+  AutoHeightComponent,
+  defaultCustomStyles,
+  MenuPlacement,
+  DropdownChipColor,
+  Option,
+  defaultNoMessageFunction
+} from "./DropdownConstants";
 import generateBaseStyles, { customTheme } from "./Dropdown.styles";
-import "./Dropdown.scss";
 import Control from "./components/Control/Control";
-import { DROPDOWN_CHIP_COLORS } from "./dropdown-constants";
-import {SubIcon, VibeComponentProps} from "../../types";
-import {TooltipProps} from "../Tooltip/Tooltip";
-import {AvatarSize, AvatarType} from "../Avatar/AvatarConstants";
-import {AvatarBadgeProps} from "../Avatar/AvatarBadge";
+import {KeyboardEventCallback, VibeComponentProps, ElementContent} from "../../types";
+import "./Dropdown.scss";
 
-export type DropdownOption {};
-export interface AvatarProps extends VibeComponentProps {
+export interface DropdownProps extends VibeComponentProps {
   /**
    * Placeholder to show when no value was selected
    */
@@ -36,31 +37,36 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Called when menu is opened
    */
-  onMenuOpen: PropTypes.func,
+  onMenuOpen: () => void;
+  /**
+   * Open dropdown menu by controlled prop received from outside, no matter if the user pressed on the dropdown or not.
+   */
+  menuIsOpen: boolean;
   /**
    * Called when menu is closed
    */
-  onMenuClose: PropTypes.func,
+  onMenuClose: () => void;
   /**
    * Called when key is pressed in the dropdown
    */
-  onKeyDown: PropTypes.func,
+  onKeyDown: KeyboardEventCallback;
   /**
    * Called when focused
    */
-  onFocus: PropTypes.func,
+  onFocus: (event: FocusEvent) => void;
   /**
    * Called when blurred
    */
-  onBlur: PropTypes.func,
+  onBlur: (event: FocusEvent) => void;
+  onClear:  () => void,
   /**
    * Called when selected value has changed
    */
-  onChange: PropTypes.func,
+  onChange: (option: Option, event: Event) => void;
   /**
    * Called when the dropdown's input changes.
    */
-  onInputChange: PropTypes.func,
+  onInputChange: (event: Event) => void,
   /**
    * If true, search in options will be enabled
    */
@@ -68,11 +74,11 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * The dropdown options
    */
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: Array<Option>,
   /**
    * Text to display when there are no options
    */
-  noOptionsMessage: PropTypes.func,
+  noOptionsMessage: () => string,
   /**
    * If set to true, the menu will open when focused
    */
@@ -88,7 +94,11 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * custom option render function
    */
-  optionRenderer: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  optionRenderer: (option: Option) => ElementContent
+  /**
+   * Backward compatibility for optionRenderer - please use optionRenderer instead
+   */
+  OptionRenderer:  (option: Option) => ElementContent;
   /**
    * custom value render function
    */
@@ -100,7 +110,7 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Default placement of the Dropdown menu in relation to its control. Use "auto" to flip the menu when there isn't enough space below the control.
    */
-  menuPlacement: PropTypes.oneOf(["bottom", "top", "auto"]),
+  menuPlacement: MenuPlacement,
   /**
    * If set to true, the dropdown will be in Right to Left mode
    */
@@ -108,48 +118,20 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Set default selected value
    */
-  defaultValue: PropTypes.oneOfType([
-                                      PropTypes.arrayOf(
-                                      PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-                                      ),
-                                      PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-                                    ]),
+  defaultValue: Option | Array<Option>;
   /**
    * The component's value.
    * When passed, makes this a [controlled](https://reactjs.org/docs/forms.html#controlled-components) component.
    */
-  value: PropTypes.oneOfType([
-                               PropTypes.arrayOf(
-                               PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-                               ),
-                               PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-                             ]),
+  value:Option | Array<Option>;
   /**
    * Select menu size from `Dropdown.size` - Dropdown.size.LARGE | Dropdown.size.MEDIUM | Dropdown.size.SMALL
    */
-  size: PropTypes.string,
+  size: string;
   /**
    * If provided Dropdown will work in async mode. Can be either promise or callback
    */
-  asyncOptions: PropTypes.oneOfType([
-                                      PropTypes.func, // callback
-                                      PropTypes.shape({
-      then: PropTypes.func.isRequired,
-      catch: PropTypes.func.isRequired
-    }) // Promise
-                                    ]),
+  asyncOptions: Promise<Array<Option>> | (() => Array<Option>);
   /**
    * If set to true, fetched async options will be cached
    */
@@ -165,7 +147,7 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Whether the menu should use a portal, and where it should attach
    */
-  menuPortalTarget: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
+  menuPortalTarget: null | HTMLElement
   /**
    * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
    */
@@ -173,11 +155,11 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Maximum height of the menu before scrolling
    */
-  maxMenuHeight: PropTypes.number,
+  maxMenuHeight: number;
   /**
    * Tab index for keyboard navigation purposes
    */
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  tabIndex: number;
   /**
    * ID for the select container
    */
@@ -203,7 +185,7 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * callback to be called when `multiline` is `true` and the option is removed
    */
-  onOptionRemove: (option, e: {DropndownOption, e}) => void;
+  onOptionRemove: (option: Option, e: Event) => void;
   /**
    The options set by default will be set as mandatory and the user will not be able to cancel their selection
    */
@@ -211,7 +193,7 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * Override the built-in logic to detect whether an option is selected.
    */
-  isOptionSelected: PropTypes.func,
+  isOptionSelected: (option: Option, selectValue:ReadonlyArray<Option>) => boolean
   /**
    * For display the drop down menu in overflow hidden/scroll container.
    */
@@ -219,58 +201,59 @@ export interface AvatarProps extends VibeComponentProps {
   /**
    * While using insideOverflowContainer, if the on of the dropdown container using transform animation please attached the ref to this container.
    */
-  transformContainerRef: PropTypes.object
-};
+  transformContainerRef: ForwardedRef<HTMLElement>,
+  ref: RefObject<HTMLElement>;
+}
 
 const Dropdown = ({
   className,
-  placeholder,
+  placeholder = "",
   disabled,
-  onMenuOpen,
-  onMenuClose,
-  onFocus,
-  onBlur,
-  onChange: customOnChange,
-  searchable,
-  options,
+  onMenuOpen = NOOP,
+  onMenuClose = NOOP,
+  onFocus = NOOP,
+  onBlur = NOOP,
+  onChange: customOnChange = NOOP,
+  searchable = true,
+  options = [],
   defaultValue,
   value: customValue,
-  noOptionsMessage,
+  noOptionsMessage = defaultNoMessageFunction,
   openMenuOnFocus,
   openMenuOnClick,
-  clearable,
+  clearable = false,
   OptionRenderer,
   optionRenderer,
   ValueRenderer,
   valueRenderer,
   menuRenderer,
-  menuPlacement,
+  menuPlacement = MenuPlacement.BOTTOM,
   rtl,
-  size,
+  size = SIZES.MEDIUM,
   asyncOptions,
   cacheOptions,
   defaultOptions,
   isVirtualized,
   menuPortalTarget,
-  extraStyles,
+  extraStyles = defaultCustomStyles,
   maxMenuHeight,
   menuIsOpen,
-  tabIndex,
+  tabIndex = 0,
   id,
-  autoFocus,
+  autoFocus = false,
   multi = false,
   multiline = false,
   onOptionRemove: customOnOptionRemove,
   onOptionSelect,
   onClear,
-  onInputChange,
+  onInputChange = NOOP,
   closeMenuOnSelect = !multi,
   ref,
-  withMandatoryDefaultOptions,
+  withMandatoryDefaultOptions = false,
   isOptionSelected,
-  insideOverflowContainer,
+  insideOverflowContainer = false,
   transformContainerRef
-}) => {
+} : DropdownProps) => {
   const controlRef = useRef();
   const overrideDefaultValue = useMemo(() => {
     if (defaultValue) {
@@ -324,7 +307,7 @@ const Dropdown = ({
 
     if (multi) {
       if (multiline) {
-        ADD_AUTO_HEIGHT_COMPONENTS.forEach(component => {
+        AutoHeightComponent.forEach(component => {
           const original = mergedStyles[component];
           mergedStyles[component] = (provided, state) => ({
             ...original(provided, state),
@@ -384,7 +367,9 @@ const Dropdown = ({
     [selectedOptions, onOptionRemove, isDialogShown, multiline, insideOverflowContainer]
   );
 
-  const onChange = (option, event) => {
+  /** TODO: check after update**/
+      // TODO: find better type for event
+  const onChange = (option: Option, event: Event & {action: string}) => {
     if (customOnChange) {
       customOnChange(option, event);
     }
@@ -491,241 +476,10 @@ const Dropdown = ({
   );
 };
 
-Dropdown.size = SIZES;
-Dropdown.chipColors = DROPDOWN_CHIP_COLORS;
-
-Dropdown.defaultProps = {
-  className: "",
-  placeholder: "",
-  onMenuOpen: NOOP,
-  onMenuClose: NOOP,
-  onKeyDown: NOOP,
-  onFocus: NOOP,
-  onBlur: NOOP,
-  onChange: NOOP,
-  onInputChange: NOOP,
-  searchable: true,
-  options: [],
-  menuPlacement: "bottom",
-  noOptionsMessage: NOOP,
-  clearable: true,
-  size: SIZES.MEDIUM,
-  extraStyles: defaultCustomStyles,
-  tabIndex: "0",
-  onOptionRemove: undefined,
-  id: undefined,
-  autoFocus: false,
-  closeMenuOnSelect: undefined,
-  ref: undefined,
-  withMandatoryDefaultOptions: false,
-  insideOverflowContainer: false,
-  transformContainerRef: undefined
-};
-
-Dropdown.propTypes = {
-  /**
-   * Custom style
-   */
-  className: PropTypes.string,
-  /**
-   * Placeholder to show when no value was selected
-   */
-  placeholder: PropTypes.string,
-  /**
-   * If set to true, dropdown will be disabled
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Called when menu is opened
-   */
-  onMenuOpen: PropTypes.func,
-  /**
-   * Called when menu is closed
-   */
-  onMenuClose: PropTypes.func,
-  /**
-   * Called when key is pressed in the dropdown
-   */
-  onKeyDown: PropTypes.func,
-  /**
-   * Called when focused
-   */
-  onFocus: PropTypes.func,
-  /**
-   * Called when blurred
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Called when selected value has changed
-   */
-  onChange: PropTypes.func,
-  /**
-   * Called when the dropdown's input changes.
-   */
-  onInputChange: PropTypes.func,
-  /**
-   * If true, search in options will be enabled
-   */
-  searchable: PropTypes.bool,
-  /**
-   * The dropdown options
-   */
-  options: PropTypes.arrayOf(PropTypes.object),
-  /**
-   * Text to display when there are no options
-   */
-  noOptionsMessage: PropTypes.func,
-  /**
-   * If set to true, the menu will open when focused
-   */
-  openMenuOnFocus: PropTypes.bool,
-  /**
-   * If set to true, the menu will open when clicked
-   */
-  openMenuOnClick: PropTypes.bool,
-  /**
-   * If set to true, clear button will be added
-   */
-  clearable: PropTypes.bool,
-  /**
-   * custom option render function
-   */
-  optionRenderer: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  /**
-   * custom value render function
-   */
-  valueRenderer: PropTypes.func,
-  /**
-   * custom menu render function
-   */
-  menuRenderer: PropTypes.func,
-  /**
-   * Default placement of the Dropdown menu in relation to its control. Use "auto" to flip the menu when there isn't enough space below the control.
-   */
-  menuPlacement: PropTypes.oneOf(["bottom", "top", "auto"]),
-  /**
-   * If set to true, the dropdown will be in Right to Left mode
-   */
-  rtl: PropTypes.bool,
-  /**
-   * Set default selected value
-   */
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
-      })
-    ),
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-  ]),
-  /**
-   * The component's value.
-   * When passed, makes this a [controlled](https://reactjs.org/docs/forms.html#controlled-components) component.
-   */
-  value: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
-      })
-    ),
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-  ]),
-  /**
-   * Select menu size from `Dropdown.size` - Dropdown.size.LARGE | Dropdown.size.MEDIUM | Dropdown.size.SMALL
-   */
-  size: PropTypes.string,
-  /**
-   * If provided Dropdown will work in async mode. Can be either promise or callback
-   */
-  asyncOptions: PropTypes.oneOfType([
-    PropTypes.func, // callback
-    PropTypes.shape({
-      then: PropTypes.func.isRequired,
-      catch: PropTypes.func.isRequired
-    }) // Promise
-  ]),
-  /**
-   * If set to true, fetched async options will be cached
-   */
-  cacheOptions: PropTypes.bool,
-  /**
-   * If set, `asyncOptions` will be invoked with its value on mount and the resolved results will be loaded
-   */
-  defaultOptions: PropTypes.oneOfType([PropTypes.bool, PropTypes.arrayOf(PropTypes.object)]),
-  /**
-   * If set to true, the menu will use virtualization. Virtualized async works only with
-   */
-  isVirtualized: PropTypes.bool,
-  /**
-   * Whether the menu should use a portal, and where it should attach
-   */
-  menuPortalTarget: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
-  /**
-   * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
-   */
-  extraStyles: PropTypes.func,
-  /**
-   * Maximum height of the menu before scrolling
-   */
-  maxMenuHeight: PropTypes.number,
-  /**
-   * Tab index for keyboard navigation purposes
-   */
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /**
-   * ID for the select container
-   */
-  id: PropTypes.string,
-  /**
-   * focusAuto when component mount
-   */
-  autoFocus: PropTypes.bool,
-  /**
-   * If set to true, the dropdown will be in multi-select mode.
-   * When in multi-select mode, the selected value will be an array,
-   * and it will be displayed as our [`<Chips>`](/?path=/docs/components-chips--sandbox) component.
-   */
-  multi: PropTypes.bool,
-  /**
-   * If set to true together with `multi`, it will make the dropdown expand to multiple lines when new values are selected.
-   */
-  multiline: PropTypes.bool,
-  /**
-  Pass closeMenuOnSelect to close the multi choose any time an options is chosen.
-  */
-  closeMenuOnSelect: PropTypes.bool,
-  /**
-   * callback to be called when `multiline` is `true` and the option is removed
-   */
-  onOptionRemove: PropTypes.func,
-  /**
-   Pass Ref for reference of the actual dropdown component
-   */
-  ref: PropTypes.func,
-  /**
-   The options set by default will be set as mandatory and the user will not be able to cancel their selection
-   */
-  withMandatoryDefaultOptions: PropTypes.bool,
-  /**
-   * Override the built-in logic to detect whether an option is selected.
-   */
-  isOptionSelected: PropTypes.func,
-  /**
-   * For display the drop down menu in overflow hidden/scroll container.
-   */
-  insideOverflowContainer: PropTypes.bool,
-  /**
-   * While using insideOverflowContainer, if the on of the dropdown container using transform animation please attached the ref to this container.
-   */
-  transformContainerRef: PropTypes.object
-};
+Object.assign(Dropdown, {
+  size: SIZES,
+  chipColors: DropdownChipColor,
+  autoHeightComponents: AutoHeightComponent
+});
 
 export default Dropdown;

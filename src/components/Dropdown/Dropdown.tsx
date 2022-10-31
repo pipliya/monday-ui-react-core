@@ -3,7 +3,6 @@ import Select, { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
 import { WindowedMenuList } from "react-windowed-select";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import { SIZES } from "../../constants";
 import MenuComponent from "./components/menu/menu";
@@ -12,6 +11,7 @@ import OptionComponent from "./components/option/option";
 import SingleValueComponent from "./components/singleValue/singleValue";
 import ClearIndicatorComponent from "./components/ClearIndicator/ClearIndicator";
 import ValueContainer from "./components/ValueContainer/ValueContainer";
+import MultiValue from "./components/MultiValue/MultiValue";
 import {
   AutoHeightComponent,
   defaultCustomStyles,
@@ -100,9 +100,9 @@ export interface DropdownProps extends VibeComponentProps {
    */
   OptionRenderer: (option: Option) => ElementContent;
   /**
-   * Custom value render function
+   * Custom value render function TODO
    */
-  valueRenderer: PropTypes.func;
+  valueRenderer: any;
   /**
    * Backward Backward compatibility for valueRenderer, please use valueRenderer instead.
    */
@@ -110,7 +110,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * custom menu render function
    */
-  menuRenderer: PropTypes.func;
+  menuRenderer: any;
   /**
    * Default placement of the Dropdown menu in relation to its control. Use "auto" to flip the menu when there isn't enough space below the control.
    */
@@ -155,7 +155,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
    */
-  extraStyles: PropTypes.func;
+  extraStyles: any;
   /**
    * Maximum height of the menu before scrolling
    */
@@ -210,7 +210,7 @@ export interface DropdownProps extends VibeComponentProps {
    * While using insideOverflowContainer, if the on of the dropdown container using transform animation please attached the ref to this container.
    */
   transformContainerRef: ForwardedRef<HTMLElement>;
-  ref: Ref<Select<Option, boolean, GroupBase<Option>>>;
+  ref: any;
 }
 
 const Dropdown = ({
@@ -442,7 +442,7 @@ const Dropdown = ({
         Control,
         ...(finalValueRenderer && { SingleValue }),
         ...(multi && {
-          MultiValue: NOOP, // We need it for react-select to behave nice with "multi"
+          MultiValue, // We need it for react-select to behave nice with "multi"
           ValueContainer
         }),
         ...(isVirtualized && { MenuList: WindowedMenuList })

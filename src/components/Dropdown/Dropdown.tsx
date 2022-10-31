@@ -1,4 +1,4 @@
-import React, {FocusEvent, ForwardedRef, RefObject, useCallback, useMemo, useRef, useState} from "react";
+import React, { FocusEvent, ForwardedRef, useCallback, useMemo, useRef, useState } from "react";
 import Select, { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
@@ -22,7 +22,7 @@ import {
 } from "./DropdownConstants";
 import generateBaseStyles, { customTheme } from "./Dropdown.styles";
 import Control from "./components/Control/Control";
-import {KeyboardEventCallback, VibeComponentProps, ElementContent} from "../../types";
+import { KeyboardEventCallback, VibeComponentProps, ElementContent } from "../../types";
 import "./Dropdown.scss";
 
 export interface DropdownProps extends VibeComponentProps {
@@ -58,7 +58,7 @@ export interface DropdownProps extends VibeComponentProps {
    * Called when blurred
    */
   onBlur: (event: FocusEvent) => void;
-  onClear:  () => void,
+  onClear: () => void;
   /**
    * Called when selected value has changed
    */
@@ -66,7 +66,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Called when the dropdown's input changes.
    */
-  onInputChange: (event: Event) => void,
+  onInputChange: (event: Event) => void;
   /**
    * If true, search in options will be enabled
    */
@@ -74,11 +74,11 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * The dropdown options
    */
-  options: Array<Option>,
+  options: Array<Option>;
   /**
    * Text to display when there are no options
    */
-  noOptionsMessage: () => string,
+  noOptionsMessage: () => string;
   /**
    * If set to true, the menu will open when focused
    */
@@ -94,23 +94,27 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * custom option render function
    */
-  optionRenderer: (option: Option) => ElementContent
+  optionRenderer: (option: Option) => ElementContent;
   /**
    * Backward compatibility for optionRenderer - please use optionRenderer instead
    */
-  OptionRenderer:  (option: Option) => ElementContent;
+  OptionRenderer: (option: Option) => ElementContent;
   /**
-   * custom value render function
+   * Custom value render function
    */
-  valueRenderer: PropTypes.func,
+  valueRenderer: PropTypes.func;
+  /**
+   * Backward Backward compatibility for valueRenderer, please use valueRenderer instead.
+   */
+  ValueRenderer: () => void;
   /**
    * custom menu render function
    */
-  menuRenderer: PropTypes.func,
+  menuRenderer: PropTypes.func;
   /**
    * Default placement of the Dropdown menu in relation to its control. Use "auto" to flip the menu when there isn't enough space below the control.
    */
-  menuPlacement: MenuPlacement,
+  menuPlacement: MenuPlacement;
   /**
    * If set to true, the dropdown will be in Right to Left mode
    */
@@ -123,7 +127,7 @@ export interface DropdownProps extends VibeComponentProps {
    * The component's value.
    * When passed, makes this a [controlled](https://reactjs.org/docs/forms.html#controlled-components) component.
    */
-  value:Option | Array<Option>;
+  value: Option | Array<Option>;
   /**
    * Select menu size from `Dropdown.size` - Dropdown.size.LARGE | Dropdown.size.MEDIUM | Dropdown.size.SMALL
    */
@@ -139,7 +143,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * If set, `asyncOptions` will be invoked with its value on mount and the resolved results will be loaded
    */
-  defaultOptions: PropTypes.oneOfType([PropTypes.bool, PropTypes.arrayOf(PropTypes.object)]),
+  defaultOptions: false | undefined | null | Array<Option>;
   /**
    * If set to true, the menu will use virtualization. Virtualized async works only with
    */
@@ -147,11 +151,11 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Whether the menu should use a portal, and where it should attach
    */
-  menuPortalTarget: null | HTMLElement
+  menuPortalTarget: null | HTMLElement;
   /**
    * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
    */
-  extraStyles: PropTypes.func,
+  extraStyles: PropTypes.func;
   /**
    * Maximum height of the menu before scrolling
    */
@@ -183,9 +187,13 @@ export interface DropdownProps extends VibeComponentProps {
    */
   closeMenuOnSelect: boolean;
   /**
-   * callback to be called when `multiline` is `true` and the option is removed
+   * Callback to be called when `multiline` is `true` and the option is removed
    */
   onOptionRemove: (option: Option, e: Event) => void;
+  /**
+   * Callback to be called when an option selected
+   */
+  onOptionSelect: (option: Option) => void;
   /**
    The options set by default will be set as mandatory and the user will not be able to cancel their selection
    */
@@ -193,7 +201,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Override the built-in logic to detect whether an option is selected.
    */
-  isOptionSelected: (option: Option, selectValue:ReadonlyArray<Option>) => boolean
+  isOptionSelected: (option: Option, selectValue: ReadonlyArray<Option>) => boolean;
   /**
    * For display the drop down menu in overflow hidden/scroll container.
    */
@@ -201,8 +209,8 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * While using insideOverflowContainer, if the on of the dropdown container using transform animation please attached the ref to this container.
    */
-  transformContainerRef: ForwardedRef<HTMLElement>,
-  ref: RefObject<HTMLElement>;
+  transformContainerRef: ForwardedRef<HTMLElement>;
+  ref: Ref<Select<Option, boolean, GroupBase<Option>>>;
 }
 
 const Dropdown = ({
@@ -253,7 +261,7 @@ const Dropdown = ({
   isOptionSelected,
   insideOverflowContainer = false,
   transformContainerRef
-} : DropdownProps) => {
+}: DropdownProps) => {
   const controlRef = useRef();
   const overrideDefaultValue = useMemo(() => {
     if (defaultValue) {
@@ -307,7 +315,8 @@ const Dropdown = ({
 
     if (multi) {
       if (multiline) {
-        AutoHeightComponent.forEach(component => {
+        /** TODO: check**/
+        Object.values(AutoHeightComponent).forEach(component => {
           const original = mergedStyles[component];
           mergedStyles[component] = (provided, state) => ({
             ...original(provided, state),
@@ -346,9 +355,9 @@ const Dropdown = ({
 
   const onOptionRemove = useMemo(() => {
     if (customOnOptionRemove) {
-      return (optionValue, e) => customOnOptionRemove(selectedOptionsMap[optionValue], e);
+      return (optionValue: string, e: Event) => customOnOptionRemove(selectedOptionsMap[optionValue], e);
     }
-    return function (optionValue, e) {
+    return function (optionValue: string, e: Event) {
       setSelected(selected.filter(option => option.value !== optionValue));
       e.stopPropagation();
     };
@@ -368,8 +377,8 @@ const Dropdown = ({
   );
 
   /** TODO: check after update**/
-      // TODO: find better type for event
-  const onChange = (option: Option, event: Event & {action: string}) => {
+  // TODO: find better type for event
+  const onChange = (option: Option, event: Event & { action: string }) => {
     if (customOnChange) {
       customOnChange(option, event);
     }

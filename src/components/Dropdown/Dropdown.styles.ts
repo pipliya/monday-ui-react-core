@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { SIZES } from "../../constants/sizes";
+import { StylesConfig } from "react-select";
 import { getCSSVar } from "../../services/themes";
 
 const getSizeInPx = size => {
@@ -341,19 +342,21 @@ export const customTheme = theme => ({
   }
 });
 
-export default data => ({
+const generateBaseStyles: (data: any) => StylesConfig = data => ({
   container: container(data),
   control: control(data),
-  placeholder: placeholder(data),
+  placeholder: placeholder(),
   indicatorsContainer: indicatorsContainer(data),
   dropdownIndicator: dropdownIndicator(data),
   clearIndicator: clearIndicator(data),
-  singleValue: singleValue(data),
-  input: input(data),
+  singleValue: singleValue(),
+  input: input(),
   valueContainer: valueContainer(data),
   menu: menu(data),
-  option: option(data),
-  indicatorSeparator: indicatorSeparator(data),
-  group: group(data),
-  groupHeading: groupHeading(data)
+  option: option(),
+  indicatorSeparator: indicatorSeparator(),
+  group: group(),
+  groupHeading: groupHeading()
 });
+
+export default generateBaseStyles;

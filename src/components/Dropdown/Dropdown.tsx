@@ -1,5 +1,5 @@
 import React, { FocusEvent, ForwardedRef, useCallback, useMemo, useRef, useState } from "react";
-import Select, { components } from "react-select";
+import Select, { components, InputActionMeta, ActionMeta, StylesConfig, SelectProps } from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
 import { WindowedMenuList } from "react-windowed-select";
@@ -62,11 +62,11 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Called when selected value has changed
    */
-  onChange: (option: Option, event: Event) => void;
+  onChange: (option: Option, event: ActionMeta<Option>) => void;
   /**
    * Called when the dropdown's input changes.
    */
-  onInputChange: (event: Event) => void;
+  onInputChange: (newValue: string, actionMeta: InputActionMeta) => void;
   /**
    * If true, search in options will be enabled
    */
@@ -155,7 +155,9 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Custom function to override existing styles (similar to `react-select`'s `style` prop), for example: `base => ({...base, color: 'red'})`, where `base` is the component's default styles
    */
-  extraStyles: any;
+  extraStyles: (
+    baseStyles: Record<string, any>
+  ) => Record<string, (defaultStyles: any, state: any) => Record<string, any>>;
   /**
    * Maximum height of the menu before scrolling
    */
@@ -302,10 +304,10 @@ const Dropdown = ({
     const customStyles = extraStyles(baseStyles);
 
     // Lastly, we create a style groups object that makes sure we run each custom group with our basic overrides.
-    const mergedStyles = Object.entries(customStyles).reduce((accumulator, [stylesGroup, stylesFn]) => {
+    const mergedStyles = Object.entries(customStyles).reduce((accumulator: StylesConfig, [stylesGroup, stylesFn]) => {
       return {
         ...accumulator,
-        [stylesGroup]: (defaultStyles, state) => {
+        [stylesGroup]: (defaultStyles: any, state: any) => {
           const provided = baseStyles[stylesGroup] ? baseStyles[stylesGroup](defaultStyles, state) : defaultStyles;
 
           return stylesFn(provided, state);
@@ -358,12 +360,15 @@ const Dropdown = ({
       return (optionValue: string, e: Event) => customOnOptionRemove(selectedOptionsMap[optionValue], e);
     }
     return function (optionValue: string, e: Event) {
-      setSelected(selected.filter(option => option.value !== optionValue));
-      e.stopPropagation();
+      if (selected instanceof Array) {
+        const options = selected.filter(option => option.value !== optionValue);
+        setSelected(options);
+        e.stopPropagation();
+      }
     };
   }, [customOnOptionRemove, selected, selectedOptionsMap]);
 
-  const customProps = useMemo(
+  const customProps: selectProps = useMemo(
     () => ({
       selectedOptions,
       onSelectedDelete: onOptionRemove,
@@ -378,7 +383,7 @@ const Dropdown = ({
 
   /** TODO: check after update**/
   // TODO: find better type for event
-  const onChange = (option: Option, event: Event & { action: string }) => {
+  const onChange = (option: Option, event: ActionMeta<Option>) => {
     if (customOnChange) {
       customOnChange(option, event);
     }
@@ -392,7 +397,9 @@ const Dropdown = ({
         }
 
         if (!isControlled) {
-          setSelected([...selected, selectedOption]);
+          if (selected instanceof Array) {
+            setSelected([...selected, selectedOption]);
+          }
         }
         break;
       }

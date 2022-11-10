@@ -1,6 +1,6 @@
 import Chips from "../Chips/Chips";
 
-export const defaultCustomStyles = (baseStyles: {}) => baseStyles;
+export const defaultCustomStyles = (baseStyles: Record<string, any>) => baseStyles;
 export const DropdownChipColor = {
   PRIMARY: Chips.colors.PRIMARY,
   NEGATIVE: Chips.colors.NEGATIVE,

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 const fs = require("fs");
+const fsExtra = require("fs-extra");
+
 const path = require("path");
 const { publishedComponents, publishedTSComponents } = require("../webpack/published-components");
 
@@ -42,6 +44,14 @@ function buildTSComponentsEsmFile() {
   buildComponentsEsmFileByMap(publishedTSComponents, "ts-esm.js");
 }
 
+function buildStorybookUtils() {
+  const source = path.join(__dirname, "../src/storybook/infra/vibe-storybook-addon");
+  const destination = path.join(__dirname, "../dist/storybookUtils/addon");
+
+  // copy source folder to destination
+  fsExtra.copy(source, destination);
+}
+
 function buildIconsEsmFile() {
   const icons = fs.readdirSync(path.join(__dirname, "../dist/icons")).filter(file => file !== "index.js");
   const iconsContent = icons
@@ -66,5 +76,6 @@ module.exports = {
   buildComponentsEsmFile,
   buildTSComponentsEsmFile,
   buildComponentsTypesIndexFile,
-  buildIconsEsmFile
+  buildIconsEsmFile,
+  buildStorybookUtils
 };

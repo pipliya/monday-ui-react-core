@@ -1,5 +1,4 @@
 const projectConfig = require("../webpack/storybook.config.js");
-const vibeStorybookConfig = require("./vibe-storybook-config.ts");
 
 const mergeConfigRules = (originalConfig: any, newConfigRules: any) => {
   return {
@@ -35,7 +34,7 @@ const getAddons = () => {
     "@storybook/addon-docs",
     "@storybook/addon-toolbars",
     "@storybook/addon-actions",
-    "../dist/storybookAddon"
+    "../dist/storybookUtils/addon/preset.js"
   ];
 
   return addons;
@@ -46,7 +45,9 @@ module.exports = {
   webpackFinal: async (config: any) => {
     return buildConfig(config);
   },
-  features: vibeStorybookConfig.main.features,
+  features: {
+    interactionsDebugger: true
+  },
   addons: getAddons(),
   core: {
     builder: "webpack5"

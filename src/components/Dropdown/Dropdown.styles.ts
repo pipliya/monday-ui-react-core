@@ -1,9 +1,12 @@
 /* eslint-disable no-param-reassign */
-import { SIZES } from "../../constants/sizes";
+import { CSSProperties, RefObject } from "react";
+import { SIZES } from "../../constants";
 import { StylesConfig } from "react-select";
 import { getCSSVar } from "../../services/themes";
 
-const getSizeInPx = size => {
+type ThemeType = CSSProperties & { colors: Record<string, any> };
+
+const getSizeInPx = (size: typeof SIZES[keyof typeof SIZES]) => {
   switch (size) {
     case SIZES.LARGE:
       return 48;
@@ -15,17 +18,17 @@ const getSizeInPx = size => {
   }
 };
 
-const getSize = size => {
+const getSize = (size: typeof SIZES[keyof typeof SIZES]) => {
   const selectedSize = getSizeInPx(size);
   return { height: `${selectedSize}px` };
 };
 
-const getInnerSize = size => {
+const getInnerSize = (size: typeof SIZES[keyof typeof SIZES]) => {
   const selectedSize = getSizeInPx(size) - 2;
   return { height: `${selectedSize}px` };
 };
 
-const getIndicatorBoxSize = size => {
+const getIndicatorBoxSize = (size: typeof SIZES[keyof typeof SIZES]) => {
   const selectedSize = getSizeInPx(size) - 8;
   return {
     height: `${selectedSize}px`,
@@ -39,9 +42,12 @@ const getColor = () => {
   return { color, backgroundColor };
 };
 
-const getFont = size => ({ fontSize: getSingleValueTextSize(size), lineHeight: getSingleValueTextSize(size) });
+const getFont = (size?: typeof SIZES[keyof typeof SIZES]) => ({
+  fontSize: getSingleValueTextSize(size),
+  lineHeight: getSingleValueTextSize(size)
+});
 
-const disabledContainerStyle = isDisabled => {
+const disabledContainerStyle = (isDisabled: boolean) => {
   if (!isDisabled) return {};
   return {
     backgroundColor: getCSSVar("disabled-background-color"),
@@ -58,7 +64,10 @@ const disabledContainerStyle = isDisabled => {
   };
 };
 
-const getOptionStyle = (provided, { isDisabled, isSelected, isFocused }) => {
+const getOptionStyle = (
+  provided: any,
+  { isDisabled, isSelected, isFocused }: { isDisabled: boolean; isSelected: boolean; isFocused: boolean }
+) => {
   delete provided[":active"];
   delete provided.width;
   const general = {
@@ -104,8 +113,8 @@ const getOptionStyle = (provided, { isDisabled, isSelected, isFocused }) => {
 };
 
 const container =
-  ({ size }) =>
-  (provided, { isDisabled }) => {
+  ({ size }: { size: typeof SIZES[keyof typeof SIZES] }) =>
+  (provided: any, { isDisabled }: { isDisabled: boolean }) => {
     delete provided.pointerEvents;
     return {
       ...provided,
@@ -128,8 +137,8 @@ const container =
   };
 
 const control =
-  ({ size }) =>
-  (provided, { isDisabled }) => ({
+  ({ size }: { size: typeof SIZES[keyof typeof SIZES] }) =>
+  (provided: any, { isDisabled }: { isDisabled: boolean }) => ({
     ...provided,
     ...getInnerSize(size),
     ...getColor(),
@@ -146,7 +155,7 @@ const control =
     ...disabledContainerStyle(isDisabled)
   });
 
-const placeholder = () => provided => ({
+const placeholder = () => (provided: any) => ({
   ...provided,
   ...getFont(),
   color: getCSSVar("secondary-text-color"),
@@ -154,8 +163,8 @@ const placeholder = () => provided => ({
 });
 
 const indicatorsContainer =
-  ({ size }) =>
-  (provided, { isDisabled }) => ({
+  ({ size }: { size: typeof SIZES[keyof typeof SIZES] }) =>
+  (provided: any, { isDisabled }: { isDisabled: boolean }) => ({
     ...provided,
     ...getFont(),
     ...getColor(),
@@ -165,8 +174,8 @@ const indicatorsContainer =
   });
 
 const dropdownIndicator =
-  ({ size }) =>
-  (provided, { selectProps }) => {
+  ({ size }: { size: typeof SIZES[keyof typeof SIZES] }) =>
+  (provided: any, { selectProps }: { selectProps: Record<string, any> }) => {
     return {
       ...provided,
       display: "flex",
@@ -190,7 +199,7 @@ const dropdownIndicator =
   };
 
 const clearIndicator =
-  ({ size }) =>
+  ({ size }: { size: typeof SIZES[keyof typeof SIZES] }) =>
   () => ({
     display: "flex",
     alignItems: "center",
@@ -204,7 +213,7 @@ const clearIndicator =
     }
   });
 
-const menuOpenOpacity = ({ menuIsOpen }) => {
+const menuOpenOpacity = ({ menuIsOpen }: { menuIsOpen: boolean }) => {
   if (menuIsOpen) {
     return {
       opacity: 0.6
@@ -214,7 +223,7 @@ const menuOpenOpacity = ({ menuIsOpen }) => {
 
 const singleValue =
   () =>
-  (provided, { isDisabled, selectProps }) => ({
+  (provided: any, { isDisabled, selectProps }: { isDisabled: boolean; selectProps: any }) => ({
     ...provided,
     ...getFont(),
     ...getColor(),
@@ -225,7 +234,7 @@ const singleValue =
     height: "100%"
   });
 
-function getSingleValueTextSize(size) {
+function getSingleValueTextSize(size: typeof SIZES[keyof typeof SIZES]) {
   switch (size) {
     case SIZES.LARGE:
       return "16px";
@@ -237,7 +246,7 @@ function getSingleValueTextSize(size) {
   }
 }
 
-const input = () => provided => ({
+const input = () => (provided: any) => ({
   ...provided,
   ...getFont(),
   ...getColor(),
@@ -247,7 +256,7 @@ const input = () => provided => ({
 });
 
 // 12px - because we have inner 4px
-const getCenterContentStyle = rtl => {
+const getCenterContentStyle = (rtl: boolean) => {
   return {
     display: "flex",
     alignItems: "center",
@@ -256,8 +265,8 @@ const getCenterContentStyle = rtl => {
 };
 
 const valueContainer =
-  ({ size, rtl }) =>
-  (provided, { isDisabled }) => ({
+  ({ size, rtl }: { size: typeof SIZES[keyof typeof SIZES]; rtl: boolean }) =>
+  (provided: any, { isDisabled }: { isDisabled: boolean }) => ({
     ...provided,
     ...getCenterContentStyle(rtl),
     ...getFont(),
@@ -268,8 +277,16 @@ const valueContainer =
   });
 
 const menu =
-  ({ controlRef, insideOverflowContainer, transformContainerRef }) =>
-  provided => {
+  ({
+    controlRef,
+    insideOverflowContainer,
+    transformContainerRef
+  }: {
+    controlRef: RefObject<HTMLElement>;
+    transformContainerRef: RefObject<HTMLElement>;
+    insideOverflowContainer: boolean;
+  }) =>
+  (provided: any) => {
     const baseStyle = {
       ...provided,
       ...getFont(),
@@ -297,7 +314,7 @@ const menu =
     return { ...baseStyle, top: overrideTop, width: parentPositionData.width };
   };
 
-const option = () => (provided, state) => ({
+const option = () => (provided: any, state: any) => ({
   ...getFont(),
   ...getOptionStyle(provided, state)
 });
@@ -321,7 +338,7 @@ const groupHeading = () => () => ({
   color: getCSSVar("secondary-text-color")
 });
 
-export const getIndicatorSize = size => {
+export const getIndicatorSize = (size: typeof SIZES[keyof typeof SIZES]) => {
   switch (size) {
     case SIZES.LARGE:
       return "20px";
@@ -333,7 +350,7 @@ export const getIndicatorSize = size => {
   }
 };
 
-export const customTheme = theme => ({
+export const customTheme = (theme: ThemeType) => ({
   ...theme,
   borderRadius: getCSSVar("border-radius-small"),
   colors: {

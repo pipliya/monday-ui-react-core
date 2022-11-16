@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from "react";
-import { components } from "react-select";
+import React, { FC } from "react";
+import { components, DropdownIndicatorProps as SelectDropdownIndicatorProps } from "react-select";
 import Icon from "../../../Icon/Icon";
 import DropdownChevronDown from "../../../Icon/Icons/components/DropdownChevronDown";
 import { getIndicatorSize } from "../../Dropdown.styles";
+import { SIZES } from "../../../../constants";
 
-const DropdownIndicator = props => {
+export type DropdownIndicatorProps = SelectDropdownIndicatorProps & { size: typeof SIZES[keyof typeof SIZES] };
+
+const DropdownIndicator: FC<DropdownIndicatorProps> = props => {
   const { isDisabled, size } = props;
   return (
     <components.DropdownIndicator {...props} className="dropdown-indicator">

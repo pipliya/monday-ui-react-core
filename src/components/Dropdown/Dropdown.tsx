@@ -1,13 +1,23 @@
-import React, { FocusEvent, ForwardedRef, useCallback, useMemo, useRef, useState } from "react";
-import Select, { components, InputActionMeta, ActionMeta, StylesConfig, SelectProps } from "react-select";
+import React, { FC, FocusEvent, ForwardedRef, useCallback, useMemo, useRef, useState } from "react";
+import Select, {
+  components,
+  InputActionMeta,
+  ActionMeta,
+  StylesConfig,
+  DropdownIndicatorProps,
+  InputProps,
+  SingleValueProps,
+  ClearIndicatorProps,
+  ControlProps
+} from "react-select";
 import AsyncSelect from "react-select/async";
 import NOOP from "lodash/noop";
 import { WindowedMenuList } from "react-windowed-select";
 import cx from "classnames";
 import { SIZES } from "../../constants";
-import MenuComponent from "./components/menu/menu";
+import MenuComponent, { MenuProps } from "./components/menu/menu";
 import DropdownIndicatorComponent from "./components/DropdownIndicator/DropdownIndicator";
-import OptionComponent from "./components/option/option";
+import OptionComponent, { OptionProps } from "./components/option/option";
 import SingleValueComponent from "./components/singleValue/singleValue";
 import ClearIndicatorComponent from "./components/ClearIndicator/ClearIndicator";
 import ValueContainer from "./components/ValueContainer/ValueContainer";
@@ -21,8 +31,8 @@ import {
   defaultNoMessageFunction
 } from "./DropdownConstants";
 import generateBaseStyles, { customTheme } from "./Dropdown.styles";
-import Control from "./components/Control/Control";
-import { KeyboardEventCallback, VibeComponentProps, ElementContent } from "../../types";
+import ControlComponent from "./components/Control/Control";
+import { KeyboardEventCallback, VibeComponentProps } from "../../types";
 import "./Dropdown.scss";
 
 export interface DropdownProps extends VibeComponentProps {
@@ -94,11 +104,11 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * custom option render function
    */
-  optionRenderer: (option: Option) => ElementContent;
+  optionRenderer: FC<{ option: Option }>;
   /**
    * Backward compatibility for optionRenderer - please use optionRenderer instead
    */
-  OptionRenderer: (option: Option) => ElementContent;
+  OptionRenderer: FC<{ option: Option }>;
   /**
    * Custom value render function TODO
    */
@@ -131,7 +141,7 @@ export interface DropdownProps extends VibeComponentProps {
   /**
    * Select menu size from `Dropdown.size` - Dropdown.size.LARGE | Dropdown.size.MEDIUM | Dropdown.size.SMALL
    */
-  size: string;
+  size: typeof SIZES[keyof typeof SIZES];
   /**
    * If provided Dropdown will work in async mode. Can be either promise or callback
    */
@@ -308,6 +318,7 @@ const Dropdown = ({
       return {
         ...accumulator,
         [stylesGroup]: (defaultStyles: any, state: any) => {
+          // @ts-ignore - type of stylesGroup is not string, will fixed later
           const provided = baseStyles[stylesGroup] ? baseStyles[stylesGroup](defaultStyles, state) : defaultStyles;
 
           return stylesFn(provided, state);
@@ -321,6 +332,7 @@ const Dropdown = ({
         Object.values(AutoHeightComponent).forEach(component => {
           const original = mergedStyles[component];
           mergedStyles[component] = (provided, state) => ({
+            // @ts-ignore
             ...original(provided, state),
             height: "auto"
           });
@@ -337,26 +349,36 @@ const Dropdown = ({
     return mergedStyles;
   }, [size, rtl, insideOverflowContainer, transformContainerRef, extraStyles, multi, multiline]);
 
-  const Menu = useCallback(props => <MenuComponent {...props} Renderer={menuRenderer} />, [menuRenderer]);
-
-  const DropdownIndicator = useCallback(props => <DropdownIndicatorComponent {...props} size={size} />, [size]);
+  const Menu = useCallback((props: MenuProps) => <MenuComponent {...props} Renderer={menuRenderer} />, [menuRenderer]);
+  const Control = useCallback(
+    (props: ControlProps) => <ControlComponent {...props} controlRef={controlRef} />,
+    [controlRef]
+  );
+  const DropdownIndicator = useCallback(
+    (props: DropdownIndicatorProps) => <DropdownIndicatorComponent {...props} size={size} />,
+    [size]
+  );
 
   const Option = useCallback(
-    props => <OptionComponent {...props} Renderer={finalOptionRenderer} />,
+    (props: OptionProps) => <OptionComponent {...props} Renderer={finalOptionRenderer} />,
     [finalOptionRenderer]
   );
 
-  const Input = useCallback(props => <components.Input {...props} aria-label="Dropdown input" />, []);
+  const Input = useCallback((props: InputProps) => <components.Input {...props} aria-label="Dropdown input" />, []);
 
   const SingleValue = useCallback(
-    props => <SingleValueComponent {...props} Renderer={finalValueRenderer} />,
+    (props: SingleValueProps) => <SingleValueComponent {...props} Renderer={finalValueRenderer} />,
     [finalValueRenderer]
   );
 
-  const ClearIndicator = useCallback(props => <ClearIndicatorComponent {...props} size={size} />, [size]);
+  const ClearIndicator = useCallback(
+    (props: ClearIndicatorProps) => <ClearIndicatorComponent {...props} size={size} />,
+    [size]
+  );
 
   const onOptionRemove = useMemo(() => {
     if (customOnOptionRemove) {
+      // @ts-ignore
       return (optionValue: string, e: Event) => customOnOptionRemove(selectedOptionsMap[optionValue], e);
     }
     return function (optionValue: string, e: Event) {
@@ -368,15 +390,14 @@ const Dropdown = ({
     };
   }, [customOnOptionRemove, selected, selectedOptionsMap]);
 
-  const customProps: selectProps = useMemo(
+  // TODO: Check
+  const customProps = useMemo(
     () => ({
       selectedOptions,
       onSelectedDelete: onOptionRemove,
       setIsDialogShown,
       isDialogShown,
-      isMultiline: multiline,
-      insideOverflowContainer,
-      controlRef
+      isMultiline: multiline
     }),
     [selectedOptions, onOptionRemove, isDialogShown, multiline, insideOverflowContainer]
   );
@@ -439,6 +460,7 @@ const Dropdown = ({
   return (
     <DropDownComponent
       className={cx("dropdown-wrapper", className)}
+      // @ts-ignore
       selectProps={customProps}
       components={{
         DropdownIndicator,
@@ -474,6 +496,7 @@ const Dropdown = ({
       openMenuOnClick={openMenuOnClick}
       isRtl={rtl}
       styles={styles}
+      // @ts-ignore
       theme={customTheme}
       maxMenuHeight={maxMenuHeight}
       menuPortalTarget={menuPortalTarget}

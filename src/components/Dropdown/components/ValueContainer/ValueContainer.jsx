@@ -8,7 +8,7 @@ import Dialog from "../../../Dialog/Dialog";
 import DialogContentContainer from "../../../DialogContentContainer/DialogContentContainer";
 import Chips from "../../../Chips/Chips";
 import classes from "./ValueContainer.module.scss";
-import { DROPDOWN_CHIP_COLORS } from "../../dropdown-constants";
+import { DropdownChipColor } from "../../DropdownConstants";
 
 export default function Container({ children, selectProps, ...otherProps }) {
   const { placeholder, inputValue, selectProps: customProps = {}, withMandatoryDefaultOptions } = selectProps;
@@ -27,9 +27,9 @@ export default function Container({ children, selectProps, ...otherProps }) {
   const renderOptions = useCallback(
     (from = 0, to = selectedOptions.length) =>
       selectedOptions.map((option, index) => {
-        const overrideChipColor = Object.keys(DROPDOWN_CHIP_COLORS).includes(option.chipColor)
+        const overrideChipColor = Object.keys(DropdownChipColor).includes(option.chipColor)
           ? option.chipColor
-          : DROPDOWN_CHIP_COLORS.PRIMARY;
+          : DropdownChipColor.PRIMARY;
         return index >= from && index < to ? (
           <Chips
             dataTestId="value-container-chip"

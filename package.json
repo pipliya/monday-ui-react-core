@@ -13,7 +13,7 @@
     "./dist/": "./dist/",
     "./icons": "./dist/esm/src/components/Icon/Icons/icons.js",
     "./storybookComponents": "./dist/storybook/index.js",
-    "./interactionsTests": "./dist/esm/tests/interactionsTests.js",
+    "./interactionsTests": "./dist/interactionTests.js",
     "./testIds": "./dist/esm/tests/test-ids-utils.js"
   },
   "scripts": {

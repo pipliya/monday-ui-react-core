@@ -1,5 +1,45 @@
 # Changelog
 
+## 1.91.0 (2023-02-01)
+
+#### New Features
+* [#1082](https://github.com/mondaycom/monday-ui-react-core/pull/1082) Add support for "without margin" prop in Divider component ([@hadasfa](https://github.com/hadasfa))
+
+## 1.90.0 (2023-01-30)
+
+#### New Features
+* [#1084](https://github.com/mondaycom/monday-ui-react-core/pull/1084) Feature/sergeyro/label class name props ([@SergeyRoyt](https://github.com/SergeyRoyt))
+
+## 1.89.0 (2023-01-30)
+
+#### New Features
+* [#1080](https://github.com/mondaycom/monday-ui-react-core/pull/1080) Skeleton - wrapperClassName and fullWidth props added ([@SergeyRoyt](https://github.com/SergeyRoyt))
+
+## 1.88.1 (2023-01-29)
+
+#### Bug Fixes
+* [#1079](https://github.com/mondaycom/monday-ui-react-core/pull/1079) Update Dropdown.jsx ([@orrgottlieb](https://github.com/orrgottlieb))
+
+## 1.88.0 (2023-01-29)
+
+#### New Features
+* [#1070](https://github.com/mondaycom/monday-ui-react-core/pull/1070) add class names to marker and description of radiobutton ([@hadasfa](https://github.com/hadasfa))
+* [#1078](https://github.com/mondaycom/monday-ui-react-core/pull/1078) AccordionItem and ExpandAble preparation for css modules transition ([@orrgottlieb](https://github.com/orrgottlieb))
+
+## 1.87.0 (2023-01-26)
+
+#### Bug Fixes
+* [#1075](https://github.com/mondaycom/monday-ui-react-core/pull/1075) Tipseen: snapshot tests & fix bug on onDismiss and onSubmit overrides ([@hadasfa](https://github.com/hadasfa))
+
+#### New Features
+* [#1077](https://github.com/mondaycom/monday-ui-react-core/pull/1077) Feature/sergeyro/avatar classname props ([@SergeyRoyt](https://github.com/SergeyRoyt))
+
+#### Documentation
+* [#1074](https://github.com/mondaycom/monday-ui-react-core/pull/1074) Docs/hadas/responsive list docs ([@hadasfa](https://github.com/hadasfa))
+
+#### Internal Changes
+* [#1076](https://github.com/mondaycom/monday-ui-react-core/pull/1076) small tipseen test fix ([@hadasfa](https://github.com/hadasfa))
+
 ## 1.86.3 (2023-01-25)
 
 #### Bug Fixes

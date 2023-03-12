@@ -1,0 +1,17 @@
+.codeExample {
+  width: 100%;
+}
+.example {
+  width: 100%;
+  border-color: var(--ui-border-color);
+  border: 1px solid;
+  border-radius: var(--border-radius-small);
+  height: 100%;
+}
+.explanation {
+  width: 100%;
+
+  & > * {
+    width: 100%;
+  }
+}

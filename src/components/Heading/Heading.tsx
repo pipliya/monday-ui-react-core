@@ -1,6 +1,4 @@
-import { camelCase } from "lodash-es";
 import { ComponentDefaultTestId, getTestId } from "../../tests/test-ids-utils";
-import { getStyle } from "../../helpers/typesciptCssModulesHelper";
 import cx from "classnames";
 import { DialogPosition } from "../../constants/positions";
 import React, { CSSProperties, useLayoutEffect } from "react";
@@ -11,6 +9,7 @@ import useRefWithCallback from "../../hooks/useRefWithCallback";
 import TextWithHighlight from "../TextWithHighlight/TextWithHighlight";
 import { HeadingSizes, HeadingTypes } from "./HeadingConstants";
 import { Sizes } from "../../constants";
+import { useLegacyHeadingClassNameByType } from "./HeadingHooks";
 import { VibeComponentProps, withStaticProps } from "../../types";
 import styles from "./Heading.module.scss";
 
@@ -54,18 +53,8 @@ const Heading: React.FC<HeadingProps> & {
     node.style.setProperty("--heading-clamp-lines", ellipsisMaxLines.toString())
   );
   const finalStyle = useStyle(style, { color: customColor });
-  const classNames = cx(styles.headingComponent, className, {
-    "vibe-h1-normal": type === HeadingTypes.h1 && size !== HeadingSizes.MEDIUM && size !== HeadingSizes.SMALL,
-    "vibe-h2-normal":
-      (type === HeadingTypes.h2 && size !== HeadingSizes.MEDIUM && size !== HeadingSizes.SMALL) ||
-      (type === HeadingTypes.h1 && (size === HeadingSizes.MEDIUM || size === HeadingSizes.SMALL)),
-    "vibe-h2-light": type === HeadingTypes.h3 && size !== HeadingSizes.MEDIUM && size !== HeadingSizes.SMALL,
-    "vibe-h3-normal":
-      (type === HeadingTypes.h2 && (size === HeadingSizes.MEDIUM || size === HeadingSizes.SMALL)) ||
-      (type === HeadingTypes.h3 && (size === HeadingSizes.MEDIUM || size === HeadingSizes.SMALL)) ||
-      type === HeadingTypes.h4,
-    "vibe-text-bold": type === HeadingTypes.h5,
-    "vibe-font-text-small-normal": type === HeadingTypes.h6,
+  const typographyClassName = useLegacyHeadingClassNameByType(type, size);
+  const classNames = cx(styles.headingComponent, typographyClassName, className, {
     [styles.multiLineEllipsis]: ellipsis && ellipsisMaxLines > 1,
     [styles.singleLineEllipsis]: ellipsis && ellipsisMaxLines <= 1,
     [styles.suggestEditOnHover]: suggestEditOnHover

@@ -1,6 +1,9 @@
-import { Plugin } from "postcss";
 import { replaceTypographyTokensPlugin } from "./replace-typography-tokens";
-const PLUGIN_ARRAY = [replaceTypographyTokensPlugin];
-export const plugins: Map<string, Plugin> = new Map<string, Plugin>(
-  PLUGIN_ARRAY.map(plugin => [plugin.postcssPlugin, plugin])
+import { PluginData } from "../types";
+import { PLUGIN_TYPE } from "../enums";
+
+const STYLE_PLUGINS_ARRAY = [replaceTypographyTokensPlugin];
+
+export const plugins = new Map<string, PluginData>(
+  STYLE_PLUGINS_ARRAY.map(plugin => [plugin.postcssPlugin, { plugin, type: PLUGIN_TYPE.STYLE }])
 );

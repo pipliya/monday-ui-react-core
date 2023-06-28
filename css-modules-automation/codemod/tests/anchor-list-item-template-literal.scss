@@ -1,0 +1,20 @@
+@import "../../../styles/global-css-settings";
+@import "../../styles/typography";
+
+.monday-style-anchor-list-item-template-literal {
+  @include theme-prop(color, link-color);
+  font-size: $anchor-font-size;
+  line-height: $text-line-height;
+
+  &-test {
+    background-color: red;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $spacing-small;
+  }
+
+  a {
+    @include theme-prop(color, link-color);
+  }
+}

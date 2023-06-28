@@ -1,0 +1,118 @@
+// Migrated
+// 1
+// monday-ui-react-core/src/components/Tabs/Tab/Tab.tsx
+// monday-ui-react-core/src/components/Tabs/TabPanel/TabPanel.tsx
+// monday-ui-react-core/src/components/TextWithHighlight/TextWithHighlight.tsx
+// monday-ui-react-core/src/components/VirtualizedGrid/VirtualizedGrid.tsx
+// monday-ui-react-core/src/components/VirtualizedList/VirtualizedList.tsx
+// 2
+// monday-ui-react-core/src/components/Toast/Toast.tsx
+// monday-ui-react-core/src/components/Toast/ToastLink/ToastLink.tsx
+// monday-ui-react-core/src/components/Tooltip/Tooltip.tsx
+// monday-ui-react-core/src/components/Tabs/TabList/TabList.tsx
+// monday-ui-react-core/src/components/Tabs/TabPanels/TabPanels.tsx
+// monday-ui-react-core/src/components/Tabs/TabsContext/TabsContext.tsx
+// 3
+// monday-ui-react-core/src/components/Search/Search.tsx
+// monday-ui-react-core/src/components/Skeleton/Skeleton.tsx
+// monday-ui-react-core/src/components/ResponsiveList/ResponsiveList.tsx
+// monday-ui-react-core/src/components/RadioButton/RadioButton.tsx
+// monday-ui-react-core/src/components/TextField/TextField.tsx
+// 4
+// monday-ui-react-core/src/components/Icon/Icon.tsx
+// monday-ui-react-core/src/components/Label/Label.tsx
+// monday-ui-react-core/src/components/Link/Link.tsx
+// monday-ui-react-core/src/components/List/List.tsx
+// monday-ui-react-core/src/components/ListItem/ListItem.tsx
+// monday-ui-react-core/src/components/ListItemIcon/ListItemIcon.tsx
+// monday-ui-react-core/src/components/ListTitle/ListTitle.tsx
+// 5
+// monday-ui-react-core/src/components/EditableHeading/EditableHeading.tsx
+// monday-ui-react-core/src/components/EditableInput/EditableInput.tsx
+// monday-ui-react-core/src/components/ExpandCollapse/ExpandCollapse.tsx
+// monday-ui-react-core/src/components/FieldLabel/FieldLabel.tsx
+// monday-ui-react-core/src/components/FormattedNumber/FormattedNumber.tsx
+// monday-ui-react-core/src/components/Heading/Heading.tsx
+// monday-ui-react-core/src/components/HiddenText/HiddenText.tsx
+// 6
+// monday-ui-react-core/src/components/Counter/Counter.tsx
+// monday-ui-react-core/src/components/Dialog/Dialog.tsx
+// monday-ui-react-core/src/components/Dialog/DialogContent/DialogContent.tsx
+// monday-ui-react-core/src/components/DialogContentContainer/DialogContentContainer.tsx
+// monday-ui-react-core/src/components/Divider/Divider.tsx
+// monday-ui-react-core/src/components/Dropdown/components/menu/menu.jsx
+// monday-ui-react-core/src/components/Dropdown/components/option/option.jsx
+// 7
+// monday-ui-react-core/src/components/Clickable/Clickable.tsx
+// monday-ui-react-core/src/components/ColorPicker/ColorPicker.tsx
+// monday-ui-react-core/src/components/ColorPicker/components/ColorPickerContent/ColorPickerContent.tsx
+// monday-ui-react-core/src/components/ColorPicker/components/ColorPickerItemComponent/ColorPickerItemComponent.tsx
+// monday-ui-react-core/src/components/Combobox/Combobox.jsx
+// monday-ui-react-core/src/components/Combobox/components/ComboboxCategory/ComboboxCategory.jsx
+// monday-ui-react-core/src/components/Combobox/components/ComboboxOption/ComboboxOption.jsx
+// 8
+// monday-ui-react-core/src/components/Banner/Banner.tsx
+// monday-ui-react-core/src/components/BreadcrumbsBar/BreadcrumbItem/BreadcrumbContent/BreadcrumbContent.tsx
+// monday-ui-react-core/src/components/BreadcrumbsBar/BreadcrumbItem/BreadcrumbItem.tsx
+// monday-ui-react-core/src/components/BreadcrumbsBar/BreadcrumbsBar.tsx
+// monday-ui-react-core/src/components/Button/Button.tsx
+// monday-ui-react-core/src/components/ButtonGroup/ButtonGroup.tsx
+
+// To be migrated
+// 9
+monday-ui-react-core/src/components/AlertBanner/AlertBanner.tsx
+monday-ui-react-core/src/components/AlertBanner/AlertBannerButton/AlertBannerButton.tsx
+monday-ui-react-core/src/components/AlertBanner/AlertBannerLink/AlertBannerLink.tsx
+monday-ui-react-core/src/components/AlertBanner/AlertBannerText/AlertBannerText.tsx
+// 10
+monday-ui-react-core/src/components/Accordion/Accordion/Accordion.tsx
+monday-ui-react-core/src/components/AttentionBox/AttentionBox.tsx
+monday-ui-react-core/src/components/Avatar/Avatar.tsx
+monday-ui-react-core/src/components/Avatar/AvatarBadge.tsx
+monday-ui-react-core/src/components/Avatar/AvatarContent.tsx
+// 11
+monday-ui-react-core/src/components/Menu/Menu.tsx
+monday-ui-react-core/src/components/Menu/MenuDivider/MenuDivider.tsx
+monday-ui-react-core/src/components/Menu/MenuGridItem/MenuGridItem.tsx
+monday-ui-react-core/src/components/Menu/MenuItem/MenuItem.tsx
+monday-ui-react-core/src/components/Menu/MenuItemButton/MenuItemButton.tsx
+monday-ui-react-core/src/components/Menu/MenuTitle/MenuTitle.tsx
+monday-ui-react-core/src/components/MenuButton/MenuButton.tsx
+// 12
+monday-ui-react-core/src/components/Toggle/Toggle.tsx
+monday-ui-react-core/src/components/Toggle/ToggleText.tsx
+monday-ui-react-core/src/components/Toggle/MockToggle.tsx
+monday-ui-react-core/src/components/MultiStepIndicator/MultiStepIndicator.tsx
+monday-ui-react-core/src/components/MultiStepIndicator/components/StepIndicator/StepIndicator.jsx
+// 13
+monday-ui-react-core/src/components/Dropdown/Dropdown.jsx
+monday-ui-react-core/src/components/SplitButton/SplitButton.tsx
+monday-ui-react-core/src/components/Steps/Steps.tsx
+monday-ui-react-core/src/components/Steps/StepsCommand.tsx
+monday-ui-react-core/src/components/Steps/StepsDot.tsx
+monday-ui-react-core/src/components/Steps/StepsGalleryHeader.tsx
+monday-ui-react-core/src/components/Steps/StepsHeader.tsx
+monday-ui-react-core/src/components/Steps/StepNumbersHeader.tsx
+// 14
+monday-ui-react-core/src/components/Slider/Slider.tsx
+monday-ui-react-core/src/components/SliderBase/SliderBase.tsx
+monday-ui-react-core/src/components/SliderBase/SliderTrack.tsx
+monday-ui-react-core/src/components/SliderBase/SliderFilledTrack.tsx
+monday-ui-react-core/src/components/SliderBase/SliderThumb.tsx
+monday-ui-react-core/src/components/SliderBase/SliderRail.tsx
+monday-ui-react-core/src/components/Slider/SliderInfix.tsx
+// 15
+monday-ui-react-core/src/components/ProgressBars/LinearProgressBar/LinearProgressBar.tsx
+monday-ui-react-core/src/components/ProgressBars/LinearProgressBar/Bar/Bar.tsx
+monday-ui-react-core/src/components/ProgressBars/PercentageLabel/PercentageLabel.tsx
+monday-ui-react-core/src/components/Dialog/DialogContent.tsx
+
+// Troubles
+// monday-ui-react-core/src/components/Slider/Slider.tsx // custom bem function is used - need to change that before migration
+// monday-ui-react-core/src/components/Slider/SliderBase/SliderBase.tsx
+// monday-ui-react-core/src/components/SplitButton/SplitButton.tsx // bad looking stylesheet, wrong animation on secondaryButton click
+// monday-ui-react-core/src/components/MultiStepIndicator/components/StepIndicator/StepIndicator.tsx // custom bem function is used - need to change that before migration
+// monday-ui-react-core/src/components/MultiStepIndicator/MultiStepIndicator.tsx // set cssBaseClass in a standard way and then rerun the migration
+// monday-ui-react-core/src/components/ProgressBars/LinearProgressBar/LinearProgressBar.tsx // set cssBaseClass in a standard way and then rerun the migration
+// monday-ui-react-core/src/components/Dialog/DialogContent/DialogContent.tsx // Problematic CSS transition animation
+// monday-ui-react-core/src/components/Dropdown/Dropdown.jsx // problems with applying animation styles, though everything looks godo

@@ -1,5 +1,40 @@
 # Changelog
 
+## 2.12.1 (2023-06-28)
+
+#### Bug Fixes
+* [#1369](https://github.com/mondaycom/monday-ui-react-core/pull/1369) fix: icons, interactionsTests, testIds types exports ([@SergeyRoyt](https://github.com/SergeyRoyt))
+
+## 2.12.0 (2023-06-26)
+
+#### New Features
+* [#1372](https://github.com/mondaycom/monday-ui-react-core/pull/1372) feat: Publish <GridKeyboardNavigationContext> ([@SergeyRoyt](https://github.com/SergeyRoyt))
+* [#1359](https://github.com/mondaycom/monday-ui-react-core/pull/1359) New title component and some docs fixes and tests ([@hadasfa](https://github.com/hadasfa))
+
+## 2.11.1 (2023-06-25)
+
+#### Bug Fixes
+* [#1370](https://github.com/mondaycom/monday-ui-react-core/pull/1370) fix: <TokenTable> tags styles overrides ([@SergeyRoyt](https://github.com/SergeyRoyt))
+
+## 2.11.0 (2023-06-25)
+
+#### Bug Fixes
+* [#1368](https://github.com/mondaycom/monday-ui-react-core/pull/1368) fix: <Text> in published-ts-components.js ([@SergeyRoyt](https://github.com/SergeyRoyt))
+* [#1367](https://github.com/mondaycom/monday-ui-react-core/pull/1367) Remove redundant tipseen max-width property ([@ofirmonday](https://github.com/ofirmonday))
+
+## 2.10.2 (2023-06-21)
+
+#### Documentation
+* [#1360](https://github.com/mondaycom/monday-ui-react-core/pull/1360) Add docs best practices to contribution md ([@hadasfa](https://github.com/hadasfa))
+
+#### New Icons
+* [#1361](https://github.com/mondaycom/monday-ui-react-core/pull/1361) Update icons - monday-ui-style 0.1.162 ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+## 2.10.1 (2023-06-21)
+
+#### Bug Fixes
+* [#1362](https://github.com/mondaycom/monday-ui-react-core/pull/1362) Fix bug on Tipseen in dark mode ([@hadasfa](https://github.com/hadasfa))
+
 ## 2.10.0 (2023-06-15)
 
 #### New Features

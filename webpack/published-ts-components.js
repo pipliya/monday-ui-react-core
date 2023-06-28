@@ -1,6 +1,8 @@
 const publishedTSComponents = {
   // Don't remove next line
   // plop_marker:published-components
+  Text: "components/Text/Text",
+  Title: "components/Title/Title",
   Button: "components/Button/Button",
   Checkbox: "components/Checkbox/Checkbox",
   EditableHeading: "components/EditableHeading/EditableHeading",
@@ -102,8 +104,6 @@ const publishedTSComponents = {
   useActiveDescendantListFocus: "hooks/useActiveDescendantListFocus",
   useListenFocusTriggers: "hooks/useListenFocusTriggers",
   useSwitch: "hooks/useSwitch",
-  // Don't remove next line
-  // plop_marker:published-hooks
   useClickableProps: "hooks/useClickableProps/useClickableProps",
   useHover: "hooks/useHover/useHover"
 };

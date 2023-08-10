@@ -86,7 +86,6 @@ export { default as ModalFooter } from "./Modal/ModalFooter/ModalFooter";
 export { default as ModalFooterButtons } from "./Modal/ModalFooter/ModalFooterButtons/ModalFooterButtons";
 export { default as Box } from "./Box/Box";
 export { default as Text } from "./Text/Text";
-export { default as Title } from "./Heading/Heading";
 export {
   useGridKeyboardNavigationContext,
   GridKeyboardNavigationContext
